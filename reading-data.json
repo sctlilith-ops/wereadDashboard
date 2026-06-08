@@ -1,0 +1,1137 @@
+{
+  "summary": {
+    "totalShelf": 3800,
+    "books": 3799,
+    "albums": 0,
+    "articleCollections": 1,
+    "booksWithNotes": 306,
+    "totalNotes": 54978,
+    "totalReadingHours": 1012.4,
+    "readingDays": 883,
+    "registDate": "2022-02-18",
+    "finishedBooks": 90,
+    "publicBooks": 1265,
+    "privateBooks": 2535,
+    "booklists": 138
+  },
+  "yearlyReading": [
+    {
+      "year": 2018,
+      "hours": 0
+    },
+    {
+      "year": 2019,
+      "hours": 0
+    },
+    {
+      "year": 2020,
+      "hours": 0
+    },
+    {
+      "year": 2021,
+      "hours": 0
+    },
+    {
+      "year": 2022,
+      "hours": 127.6
+    },
+    {
+      "year": 2023,
+      "hours": 249.4
+    },
+    {
+      "year": 2024,
+      "hours": 100.1
+    },
+    {
+      "year": 2025,
+      "hours": 448.6
+    },
+    {
+      "year": 2026,
+      "hours": 86.7
+    }
+  ],
+  "topAuthors": [
+    {
+      "name": "陀思妥耶夫斯基",
+      "readTime": "30小时33分钟",
+      "count": 3
+    },
+    {
+      "name": "西蒙娜·德·波伏瓦",
+      "readTime": "7小时4分钟",
+      "count": 3
+    },
+    {
+      "name": "上野千鹤子",
+      "readTime": "16小时17分钟",
+      "count": 2
+    },
+    {
+      "name": "尤瓦尔·赫拉利",
+      "readTime": "10小时3分钟",
+      "count": 2
+    },
+    {
+      "name": "艾米莉·勃朗特",
+      "readTime": "7小时52分钟",
+      "count": 2
+    },
+    {
+      "name": "罗素",
+      "readTime": "7小时52分钟",
+      "count": 2
+    },
+    {
+      "name": "韩炳哲",
+      "readTime": "3小时59分钟",
+      "count": 2
+    },
+    {
+      "name": "安妮·埃尔诺",
+      "readTime": "1小时54分钟",
+      "count": 2
+    },
+    {
+      "name": "刘慈欣",
+      "readTime": "1小时12分钟",
+      "count": 2
+    },
+    {
+      "name": "卡尔·古斯塔夫·荣格",
+      "readTime": "21小时54分钟",
+      "count": 1
+    }
+  ],
+  "topCategories": [
+    {
+      "title": "文学",
+      "parent": "文学",
+      "readingCount": 50,
+      "readingTime": 412160
+    },
+    {
+      "title": "社会小说",
+      "parent": "精品小说",
+      "readingCount": 19,
+      "readingTime": 244924
+    },
+    {
+      "title": "社会文化",
+      "parent": "社会文化",
+      "readingCount": 22,
+      "readingTime": 198976
+    },
+    {
+      "title": "心理",
+      "parent": "心理",
+      "readingCount": 10,
+      "readingTime": 178486
+    },
+    {
+      "title": "人物传记",
+      "parent": "人物传记",
+      "readingCount": 17,
+      "readingTime": 174277
+    },
+    {
+      "title": "个人成长",
+      "parent": "个人成长",
+      "readingCount": 19,
+      "readingTime": 150334
+    },
+    {
+      "title": "经济理财",
+      "parent": "经济理财",
+      "readingCount": 9,
+      "readingTime": 95880
+    },
+    {
+      "title": "科学技术",
+      "parent": "科学技术",
+      "readingCount": 4,
+      "readingTime": 85805
+    }
+  ],
+  "topNoteBooks": [
+    {
+      "title": "Ctrl+ Alt+ - CHAOS",
+      "author": "Joe Tidy",
+      "noteCount": 193,
+      "bookId": "CB_4TBGK9GKK6Bx73d71SFYY7WB"
+    },
+    {
+      "title": "The Mavericks Who Brought AI to Google, Facebook, and the World",
+      "author": "Cade Metz",
+      "noteCount": 8,
+      "bookId": "CB_4P2DzcDzH8jS74E75ZCeL2N3"
+    },
+    {
+      "title": "Demis Hassabis, DeepMind, and the Quest for Superintelligence",
+      "author": "Sebastian Mallaby;",
+      "noteCount": 365,
+      "bookId": "CB_39JFbRFb1CSY74675Z1XM31s"
+    },
+    {
+      "title": "现代性 (汪民安) (Z-Library).epub",
+      "author": "汪民安",
+      "noteCount": 132,
+      "bookId": "CB_1hDBsxBshFw66wg6xLBap4jD"
+    },
+    {
+      "title": "煤气灯效应",
+      "author": "[美]罗宾·斯特恩",
+      "noteCount": 5,
+      "bookId": "3300142640"
+    },
+    {
+      "title": "Learning the Tarot: A Tarot Book for Beginners",
+      "author": "Joan Bunning",
+      "noteCount": 31,
+      "bookId": "CB_AebEaDEWBBBp73p75ZECV9nD"
+    },
+    {
+      "title": "独裁者手册（补全版）",
+      "author": "布鲁斯·布尔诺·德·梅斯奎塔 / 阿拉斯泰尔·史密斯",
+      "noteCount": 391,
+      "bookId": "CB_9Jh9Rx9PY0ds6y86xLCLQ10J"
+    },
+    {
+      "title": "區判：品味判斷的社會批判",
+      "author": "皮耶．布赫迪厄(Pierre Bourdieu)",
+      "noteCount": 86,
+      "bookId": "CB_7WtGFnGGDE0x6xH6xLEgXAOa"
+    },
+    {
+      "title": "当代前沿社会理论十讲",
+      "author": "郑作彧",
+      "noteCount": 1,
+      "bookId": "CB_6j90jX0mo6KF73f71S6J857h"
+    },
+    {
+      "title": "Motherland",
+      "author": "Julia Ioffe",
+      "noteCount": 17,
+      "bookId": "CB_DhHDxnDv663f6zT6xLEwzDm4"
+    },
+    {
+      "title": "Peter Thiel and Silicon Valley's Pursuit of Power",
+      "author": "Max Chafkin",
+      "noteCount": 436,
+      "bookId": "CB_9miC36C0z4aT73F71S2CTBYM"
+    },
+    {
+      "title": "人类理解研究",
+      "author": "休谟",
+      "noteCount": 18,
+      "bookId": "CB_D5yFpGFnQ5OD73R71S5xFAgx"
+    },
+    {
+      "title": "逃避自由（弗洛姆作品系列）",
+      "author": "[美]艾里希·弗洛姆",
+      "noteCount": 96,
+      "bookId": "3300065326"
+    },
+    {
+      "title": "1844年经济学哲学手稿",
+      "author": "马克思",
+      "noteCount": 33,
+      "bookId": "3300025468"
+    },
+    {
+      "title": "解体概要 ([法] 萧沆 译者 宋刚 [宋刚, 萧沆 译者]) (Z-Library).epub",
+      "author": "[法] 萧沆 译者: 宋刚",
+      "noteCount": 24,
+      "bookId": "CB_41G79K7AgATE6wO6xLASY6w5"
+    },
+    {
+      "title": "CEO, China",
+      "author": "Kerry Brown",
+      "noteCount": 7,
+      "bookId": "CB_39J3wr3zGB3X6zf71SFZZ5Jr"
+    },
+    {
+      "title": "小狗钱钱（套装全2册） (博多·舍费尔) (Z-Library)",
+      "author": "〔德〕博多·舍费尔",
+      "noteCount": 1,
+      "bookId": "CB_0ct51P522FGe6sO6tEAs17Bu"
+    },
+    {
+      "title": "人体简史（全彩插图版）",
+      "author": "[英]比尔·布莱森",
+      "noteCount": 1,
+      "bookId": "3300098441"
+    },
+    {
+      "title": "也许你该找个人聊聊",
+      "author": "洛莉·戈特利布",
+      "noteCount": 62,
+      "bookId": "40726710"
+    },
+    {
+      "title": "张大小姐",
+      "author": "洪晃",
+      "noteCount": 63,
+      "bookId": "CB_9zDCFbCDO0RT72F71SAKt3Ei"
+    },
+    {
+      "title": "十年一觉电影梦：李安传",
+      "author": "张靓蓓 李安 ",
+      "noteCount": 185,
+      "bookId": "26776210"
+    },
+    {
+      "title": "一如既往： 不变的人性与致富心态",
+      "author": "[美]摩根·豪泽尔",
+      "noteCount": 43,
+      "bookId": "3300100329"
+    },
+    {
+      "title": "叙事的危机（韩炳哲作品系列）",
+      "author": "[德]韩炳哲",
+      "noteCount": 1,
+      "bookId": "3300136800"
+    },
+    {
+      "title": "脏活（精英对打工人的道德剥削）",
+      "author": "[美]埃亚勒·普雷斯",
+      "noteCount": 347,
+      "bookId": "3300099734"
+    },
+    {
+      "title": "达洛维夫人（英文原版） Mrs Dalloway",
+      "author": "Virginia Woolf",
+      "noteCount": 2,
+      "bookId": "3300023550"
+    },
+    {
+      "title": "不在场：东亚文化与哲学",
+      "author": "[德]韩炳哲",
+      "noteCount": 7,
+      "bookId": "3300130734"
+    },
+    {
+      "title": "浮出历史地表",
+      "author": "孟悦 戴锦华",
+      "noteCount": 0,
+      "bookId": "CB_Ex0C1KC0z9T56s36tEDrw3E8"
+    },
+    {
+      "title": "新教伦理与资本主义精神",
+      "author": "马克斯·韦伯",
+      "noteCount": 200,
+      "bookId": "25913011"
+    },
+    {
+      "title": "Secrets to Winning at Office Politics: How to Achieve Your Goals and Increase Your Influence at Work",
+      "author": "McIntyre Ph.D., Marie G.",
+      "noteCount": 12,
+      "bookId": "CB_EV15NL5MX2Z571j71S41vFhK"
+    },
+    {
+      "title": "抉擇：希拉蕊回憶錄 = Hard Choices (希拉蕊 · 羅登 · 柯林頓 (Hillary Rodham Clinton) 著  楊明暐 etc.) (Z-Library)",
+      "author": "希拉蕊‧羅登‧柯林頓",
+      "noteCount": 2,
+      "bookId": "CB_9S37Jv7Iy5en6vF6tE6C8EoQ"
+    }
+  ],
+  "booklists": [
+    {
+      "name": "林登约翰逊传",
+      "bookCount": 5
+    },
+    {
+      "name": "比特币",
+      "bookCount": 1
+    },
+    {
+      "name": "塔罗学习📑",
+      "bookCount": 4
+    },
+    {
+      "name": "后真相时代",
+      "bookCount": 1
+    },
+    {
+      "name": "办公室政治",
+      "bookCount": 10
+    },
+    {
+      "name": "日本泡沫经济时代分析",
+      "bookCount": 25
+    },
+    {
+      "name": "反精英叙事",
+      "bookCount": 6
+    },
+    {
+      "name": "科普类",
+      "bookCount": 1
+    },
+    {
+      "name": "给我巨大能量的书籍",
+      "bookCount": 2
+    },
+    {
+      "name": "英语学习",
+      "bookCount": 4
+    },
+    {
+      "name": "欧洲现代史研究",
+      "bookCount": 1
+    },
+    {
+      "name": "英国工业革命",
+      "bookCount": 4
+    },
+    {
+      "name": "极其感兴趣",
+      "bookCount": 7
+    },
+    {
+      "name": "AI人工智能",
+      "bookCount": 6
+    },
+    {
+      "name": "技术发展的探讨",
+      "bookCount": 1
+    },
+    {
+      "name": "企业传记",
+      "bookCount": 8
+    },
+    {
+      "name": "极权主义",
+      "bookCount": 7
+    },
+    {
+      "name": "艺术",
+      "bookCount": 7
+    },
+    {
+      "name": "美学",
+      "bookCount": 2
+    },
+    {
+      "name": "女性传记",
+      "bookCount": 72
+    },
+    {
+      "name": "黑塞",
+      "bookCount": 1
+    },
+    {
+      "name": "杨小凯",
+      "bookCount": 4
+    },
+    {
+      "name": "中国改革下一步",
+      "bookCount": 4
+    },
+    {
+      "name": "20世纪思想与现代性问题",
+      "bookCount": 21
+    },
+    {
+      "name": "现代性",
+      "bookCount": 0
+    },
+    {
+      "name": "女作家/女性视角/女性处境",
+      "bookCount": 58
+    },
+    {
+      "name": "中国政治探讨",
+      "bookCount": 8
+    },
+    {
+      "name": "王沪宁",
+      "bookCount": 10
+    },
+    {
+      "name": "马上读",
+      "bookCount": 67
+    },
+    {
+      "name": "科普类",
+      "bookCount": 9
+    },
+    {
+      "name": "生命的意义探讨",
+      "bookCount": 5
+    },
+    {
+      "name": "男性传记",
+      "bookCount": 47
+    },
+    {
+      "name": "张爱玲",
+      "bookCount": 5
+    },
+    {
+      "name": "果戈里",
+      "bookCount": 2
+    },
+    {
+      "name": "加缪",
+      "bookCount": 3
+    },
+    {
+      "name": "列夫.托尔斯泰",
+      "bookCount": 3
+    },
+    {
+      "name": "趣味田野调查（社会学）",
+      "bookCount": 22
+    },
+    {
+      "name": "陀思妥耶夫斯基",
+      "bookCount": 12
+    },
+    {
+      "name": "牛津通识读本",
+      "bookCount": 12
+    },
+    {
+      "name": "自由派",
+      "bookCount": 4
+    },
+    {
+      "name": "酸爽",
+      "bookCount": 19
+    },
+    {
+      "name": "韩国政经分析",
+      "bookCount": 4
+    },
+    {
+      "name": "保护身体",
+      "bookCount": 1
+    },
+    {
+      "name": "卢梭",
+      "bookCount": 0
+    },
+    {
+      "name": "秦晖",
+      "bookCount": 4
+    },
+    {
+      "name": "卡夫卡",
+      "bookCount": 5
+    },
+    {
+      "name": "刘擎推荐哲学",
+      "bookCount": 10
+    },
+    {
+      "name": "生物学",
+      "bookCount": 11
+    },
+    {
+      "name": "戴锦华",
+      "bookCount": 8
+    },
+    {
+      "name": "现代社会政治纪实",
+      "bookCount": 1
+    },
+    {
+      "name": "婚姻/爱情/亲密关系剖析",
+      "bookCount": 4
+    },
+    {
+      "name": "鲁迅",
+      "bookCount": 2
+    },
+    {
+      "name": "社会学",
+      "bookCount": 8
+    },
+    {
+      "name": "Manga",
+      "bookCount": 6
+    },
+    {
+      "name": "学术科研",
+      "bookCount": 1
+    },
+    {
+      "name": "科幻/未来",
+      "bookCount": 2
+    },
+    {
+      "name": "推理悬疑",
+      "bookCount": 1
+    },
+    {
+      "name": "黑格尔",
+      "bookCount": 1
+    },
+    {
+      "name": "女性（法律相关）",
+      "bookCount": 1
+    },
+    {
+      "name": "Musk",
+      "bookCount": 6
+    },
+    {
+      "name": "美国上层",
+      "bookCount": 4
+    },
+    {
+      "name": "心理治愈/精神力量",
+      "bookCount": 10
+    },
+    {
+      "name": "浪漫主义革命",
+      "bookCount": 3
+    },
+    {
+      "name": "罗素",
+      "bookCount": 5
+    },
+    {
+      "name": "莎士比亚",
+      "bookCount": 8
+    },
+    {
+      "name": "哲学/思考/思想/意识形态",
+      "bookCount": 63
+    },
+    {
+      "name": "关于老年的书籍",
+      "bookCount": 1
+    },
+    {
+      "name": "硬件工程师",
+      "bookCount": 2
+    },
+    {
+      "name": "认知之外",
+      "bookCount": 4
+    },
+    {
+      "name": "占星术数",
+      "bookCount": 2
+    },
+    {
+      "name": "社会/世界/理论",
+      "bookCount": 1
+    },
+    {
+      "name": "变态男主",
+      "bookCount": 2
+    },
+    {
+      "name": "波伏瓦",
+      "bookCount": 10
+    },
+    {
+      "name": "中国历史（男作者）",
+      "bookCount": 6
+    },
+    {
+      "name": "群体性",
+      "bookCount": 8
+    },
+    {
+      "name": "中国近代历史政经",
+      "bookCount": 38
+    },
+    {
+      "name": "parking lot",
+      "bookCount": 2
+    },
+    {
+      "name": "国外言情",
+      "bookCount": 7
+    },
+    {
+      "name": "佛教",
+      "bookCount": 2
+    },
+    {
+      "name": "虚无主义",
+      "bookCount": 9
+    },
+    {
+      "name": "绘本漫画",
+      "bookCount": 1
+    },
+    {
+      "name": "政治经济学",
+      "bookCount": 3
+    },
+    {
+      "name": "小说（男作家等）",
+      "bookCount": 31
+    },
+    {
+      "name": "叔本华",
+      "bookCount": 7
+    },
+    {
+      "name": "毛泽东读书目录",
+      "bookCount": 2
+    },
+    {
+      "name": "AI、生物工程等科技",
+      "bookCount": 34
+    },
+    {
+      "name": "趣味性/轻松",
+      "bookCount": 1
+    },
+    {
+      "name": "在看",
+      "bookCount": 1066
+    },
+    {
+      "name": "7天阅读小组（6.23-6.30）",
+      "bookCount": 81
+    },
+    {
+      "name": "人类学",
+      "bookCount": 11
+    },
+    {
+      "name": "科技与政治",
+      "bookCount": 8
+    },
+    {
+      "name": "生理",
+      "bookCount": 0
+    },
+    {
+      "name": "智识",
+      "bookCount": 7
+    },
+    {
+      "name": "有一定哲学基础再看",
+      "bookCount": 1
+    },
+    {
+      "name": "普利策非虚构",
+      "bookCount": 7
+    },
+    {
+      "name": "女性生理健康",
+      "bookCount": 6
+    },
+    {
+      "name": "女性政治/哲学/经济",
+      "bookCount": 8
+    },
+    {
+      "name": "历史政治类",
+      "bookCount": 8
+    },
+    {
+      "name": "先锋文学",
+      "bookCount": 5
+    },
+    {
+      "name": "雨果",
+      "bookCount": 2
+    },
+    {
+      "name": "Bl",
+      "bookCount": 2
+    },
+    {
+      "name": "歌德",
+      "bookCount": 4
+    },
+    {
+      "name": "删减书籍的完整版",
+      "bookCount": 15
+    },
+    {
+      "name": "外星人/神话/奇迹",
+      "bookCount": 2
+    },
+    {
+      "name": "非虚构类—各个国家女性处境与社会调查",
+      "bookCount": 2
+    },
+    {
+      "name": "席勒",
+      "bookCount": 2
+    },
+    {
+      "name": "女权主义/性别研究",
+      "bookCount": 104
+    },
+    {
+      "name": "名人八卦",
+      "bookCount": 0
+    },
+    {
+      "name": "准上",
+      "bookCount": 12
+    },
+    {
+      "name": "纪实文学",
+      "bookCount": 7
+    },
+    {
+      "name": "西方政经分析",
+      "bookCount": 3
+    },
+    {
+      "name": "女性职场/工作/自我提升",
+      "bookCount": 39
+    },
+    {
+      "name": "重要且紧急",
+      "bookCount": 20
+    },
+    {
+      "name": "po",
+      "bookCount": 257
+    },
+    {
+      "name": "最近看",
+      "bookCount": 99
+    },
+    {
+      "name": "如梦令完整版",
+      "bookCount": 1
+    },
+    {
+      "name": "法拉奇",
+      "bookCount": 9
+    },
+    {
+      "name": "法律",
+      "bookCount": 1
+    },
+    {
+      "name": "预言推算",
+      "bookCount": 4
+    },
+    {
+      "name": "困惑/同龄处境/迷死思/观察",
+      "bookCount": 0
+    },
+    {
+      "name": "科幻悬疑（女作者/女性视角）",
+      "bookCount": 4
+    },
+    {
+      "name": "朱迪斯.巴特勒",
+      "bookCount": 3
+    },
+    {
+      "name": "英文版",
+      "bookCount": 24
+    },
+    {
+      "name": "心理学/精神分析/心情变好",
+      "bookCount": 47
+    },
+    {
+      "name": "文革",
+      "bookCount": 4
+    },
+    {
+      "name": "(bg)delicious",
+      "bookCount": 118
+    },
+    {
+      "name": "科幻（男性视角/男作者）",
+      "bookCount": 1
+    },
+    {
+      "name": "历史（女作者）",
+      "bookCount": 1
+    },
+    {
+      "name": "毛主席",
+      "bookCount": 6
+    },
+    {
+      "name": "科普类（女作家）",
+      "bookCount": 2
+    },
+    {
+      "name": "尤瓦尔.赫拉利",
+      "bookCount": 3
+    },
+    {
+      "name": "历史",
+      "bookCount": 9
+    },
+    {
+      "name": "放松、幽默、心情好",
+      "bookCount": 47
+    },
+    {
+      "name": "爽",
+      "bookCount": 3
+    },
+    {
+      "name": "美国历史政经分析",
+      "bookCount": 2
+    },
+    {
+      "name": "中国政经分析",
+      "bookCount": 30
+    },
+    {
+      "name": "理财/投资/经济/金融",
+      "bookCount": 21
+    },
+    {
+      "name": "国外言情",
+      "bookCount": 7
+    }
+  ],
+  "readLongest": [
+    {
+      "title": "红书",
+      "author": "[瑞士]荣格原著  [英]索努·沙姆达萨尼编译",
+      "readTimeHours": 21.9
+    },
+    {
+      "title": "卡拉马佐夫兄弟（套装上下册）（陀思妥耶夫斯基文集2015）",
+      "author": "陀思妥耶夫斯基",
+      "readTimeHours": 19.3
+    },
+    {
+      "title": "始于极限：女性主义往复书简",
+      "author": "[日]上野千鹤子 [日]铃木凉美",
+      "readTimeHours": 15.9
+    },
+    {
+      "title": "改变心理学的40项研究（第7版，中译本）",
+      "author": "[美]罗杰·霍克　著 白学军 等译",
+      "readTimeHours": 12.1
+    },
+    {
+      "title": "965f8d56ba6545c6c64a1d3389c5bb6a",
+      "author": "",
+      "readTimeHours": 11.2
+    },
+    {
+      "title": "成为波伏瓦",
+      "author": "凯特·柯克帕特里克",
+      "readTimeHours": 10.9
+    },
+    {
+      "title": "李光耀观天下（精装版）",
+      "author": "李光耀",
+      "readTimeHours": 10.9
+    },
+    {
+      "title": "罪与罚（果麦经典）",
+      "author": "陀思妥耶夫斯基",
+      "readTimeHours": 10.7
+    },
+    {
+      "title": "穿越种田之贫家(杀猪)",
+      "author": "",
+      "readTimeHours": 10.4
+    },
+    {
+      "title": "国家为什么会失败：权力、富裕与贫困的根源(简体中英对照) (德隆·阿西莫格鲁  詹姆斯·罗宾逊，邓伯宸  吴国卿) (Z-Library)",
+      "author": "德隆·阿西莫格鲁",
+      "readTimeHours": 10.3
+    }
+  ],
+  "medals": [
+    {
+      "name": "点评书籍",
+      "hint": "发布 50 个点评",
+      "displayText": "发布 50 个点评"
+    },
+    {
+      "name": "21天阅读挑战",
+      "hint": "21天阅读挑战",
+      "displayText": "21天阅读挑战"
+    },
+    {
+      "name": "收到的赞",
+      "hint": "收到 3000 个点赞",
+      "displayText": "收到 3000 个点赞"
+    },
+    {
+      "name": "21天阅读挑战",
+      "hint": "21天阅读挑战",
+      "displayText": "21天阅读挑战"
+    },
+    {
+      "name": "21天阅读挑战",
+      "hint": "21天阅读挑战",
+      "displayText": "21天阅读挑战"
+    },
+    {
+      "name": "21天阅读挑战",
+      "hint": "21天阅读挑战",
+      "displayText": "21天阅读挑战"
+    },
+    {
+      "name": "收到的赞",
+      "hint": "收到 2000 个点赞",
+      "displayText": "收到 2000 个点赞"
+    },
+    {
+      "name": "世界读书日",
+      "hint": "世界读书日·创作勋章",
+      "displayText": "世界读书日·创作勋章"
+    },
+    {
+      "name": "世界读书日",
+      "hint": "世界读书日·会员勋章",
+      "displayText": "世界读书日·会员勋章"
+    },
+    {
+      "name": "微信读书十周年勋章",
+      "hint": "微信读书十周年",
+      "displayText": "微信读书十周年"
+    },
+    {
+      "name": "阅读书籍",
+      "hint": "阅读 500 本书籍",
+      "displayText": "阅读 500 本书籍"
+    },
+    {
+      "name": "连续阅读",
+      "hint": "连续阅读 30 天",
+      "displayText": "连续阅读 30 天"
+    },
+    {
+      "name": "点评书籍",
+      "hint": "发布 10 个点评",
+      "displayText": "发布 10 个点评"
+    },
+    {
+      "name": "想法发布",
+      "hint": "想法发布 1000 条",
+      "displayText": "想法发布 1000 条"
+    },
+    {
+      "name": "收到的赞",
+      "hint": "收到 1000 个点赞",
+      "displayText": "收到 1000 个点赞"
+    },
+    {
+      "name": "阅读天数",
+      "hint": "阅读 500 天",
+      "displayText": "阅读 500 天"
+    },
+    {
+      "name": "阅读时长",
+      "hint": "阅读 500 小时",
+      "displayText": "阅读 500 小时"
+    },
+    {
+      "name": "点评书籍",
+      "hint": "发布 5 个点评",
+      "displayText": "发布 5 个点评"
+    },
+    {
+      "name": "想法发布",
+      "hint": "想法发布 500 条",
+      "displayText": "想法发布 500 条"
+    },
+    {
+      "name": "收到的赞",
+      "hint": "收到 500 个点赞",
+      "displayText": "收到 500 个点赞"
+    },
+    {
+      "name": "想法发布",
+      "hint": "想法发布 200 条",
+      "displayText": "想法发布 200 条"
+    },
+    {
+      "name": "想法发布",
+      "hint": "想法发布 100 条",
+      "displayText": "想法发布 100 条"
+    },
+    {
+      "name": "收到的赞",
+      "hint": "收到 100 个点赞",
+      "displayText": "收到 100 个点赞"
+    },
+    {
+      "name": "阅读天数",
+      "hint": "阅读 365 天",
+      "displayText": "阅读 365 天"
+    },
+    {
+      "name": "阅读神作",
+      "hint": "阅读 10 本神作",
+      "displayText": "阅读 10 本神作"
+    },
+    {
+      "name": "想法发布",
+      "hint": "想法发布 50 条",
+      "displayText": "想法发布 50 条"
+    },
+    {
+      "name": "收到的赞",
+      "hint": "收到 50 个点赞",
+      "displayText": "收到 50 个点赞"
+    },
+    {
+      "name": "读完书籍",
+      "hint": "读完 100 本书籍",
+      "displayText": "读完 100 本书籍"
+    },
+    {
+      "name": "阅读天数",
+      "hint": "阅读 200 天",
+      "displayText": "阅读 200 天"
+    },
+    {
+      "name": "阅读神作",
+      "hint": "阅读 5 本神作",
+      "displayText": "阅读 5 本神作"
+    },
+    {
+      "name": "想法发布",
+      "hint": "想法发布 10 条",
+      "displayText": "想法发布 10 条"
+    },
+    {
+      "name": "读完书籍",
+      "hint": "读完 50 本书籍",
+      "displayText": "读完 50 本书籍"
+    },
+    {
+      "name": "阅读书籍",
+      "hint": "阅读 100 本书籍",
+      "displayText": "阅读 100 本书籍"
+    },
+    {
+      "name": "阅读书籍",
+      "hint": "阅读 50 本书籍",
+      "displayText": "阅读 50 本书籍"
+    },
+    {
+      "name": "阅读天数",
+      "hint": "阅读 100 天",
+      "displayText": "阅读 100 天"
+    },
+    {
+      "name": "阅读时长",
+      "hint": "阅读 100 小时",
+      "displayText": "阅读 100 小时"
+    },
+    {
+      "name": "读完书籍",
+      "hint": "读完 10 本书籍",
+      "displayText": "读完 10 本书籍"
+    },
+    {
+      "name": "阅读时长",
+      "hint": "阅读 1000 小时",
+      "displayText": "阅读 1000 小时"
+    }
+  ]
+}
