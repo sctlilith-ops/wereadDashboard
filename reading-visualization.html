@@ -3,674 +3,923 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的阅读画像 | 个人知识档案</title>
+<title>阅读画像 | 个人知识档案</title>
 <style>
+  /* ============================================================
+     DESIGN TOKENS — 深夜书房 · 水墨金
+     ============================================================ */
   :root {
-    --bg: #fafaf8;
-    --card-bg: #ffffff;
-    --text: #2c2c2c;
-    --text-secondary: #6b6b6b;
-    --accent: #8b5cf6;
-    --accent2: #06b6d4;
-    --accent3: #f59e0b;
-    --accent4: #ef4444;
-    --accent5: #10b981;
-    --accent6: #ec4899;
-    --border: #e5e5e0;
-    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-    --radius: 12px;
-    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --bg-deep: #0A0C0B;
+    --bg-surface: #111413;
+    --bg-card: rgba(255,255,255,0.025);
+    --bg-card-hover: rgba(255,255,255,0.045);
+    --glass-border: rgba(255,255,255,0.06);
+    --glass-border-hover: rgba(255,255,255,0.10);
+    --text-primary: #E6DDD0;
+    --text-secondary: #9C9488;
+    --text-tertiary: #6B6560;
+    --gold: #C4A265;
+    --gold-dim: #8B7355;
+    --gold-glow: rgba(196,162,101,0.15);
+    --amber: #D4956B;
+    --rose: #C0806B;
+    --sage: #8AA38B;
+    --mauve: #9B8EBB;
+    --teal: #7A9A9E;
+    --font-serif: Georgia, "Noto Serif SC", "STSong", "SimSun", "Songti SC", serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --radius-sm: 8px;
+    --radius: 14px;
+    --radius-lg: 20px;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-card: 0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.4);
+    --shadow-card-hover: 0 1px 0 rgba(255,255,255,0.06), 0 8px 40px rgba(0,0,0,0.5);
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; }
 
-  /* Navigation */
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #2A2A2A transparent; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,162,101,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 85% 30%, rgba(138,163,139,0.03) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 15% 70%, rgba(155,142,187,0.03) 0%, transparent 60%);
+  }
+
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+  h1, h2, h3, .serif { font-family: var(--font-serif); letter-spacing: -0.01em; }
+  h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 700; line-height: 1.15; }
+  h2 {
+    font-size: clamp(22px, 3vw, 30px); font-weight: 600;
+    color: var(--text-primary); letter-spacing: -0.005em;
+  }
+  h3 { font-size: 16px; font-weight: 600; }
+  .section-label {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+  .gold-accent { color: var(--gold); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-num {
+    font-family: var(--font-serif); font-weight: 700;
+    font-size: clamp(28px, 4vw, 44px); line-height: 1;
+    color: var(--gold); font-variant-numeric: tabular-nums;
+  }
+
+  /* ============================================================
+     NAVIGATION — 毛玻璃顶栏
+     ============================================================ */
   nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(250,250,248,0.92); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px; display: flex; gap: 4px; overflow-x: auto;
+    display: flex; gap: 2px; overflow-x: auto;
+    padding: 0 20px;
+    background: rgba(10,12,11,0.78);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    border-bottom: 1px solid var(--glass-border);
   }
   nav a {
-    display: inline-block; padding: 14px 16px; font-size: 14px;
-    color: var(--text-secondary); text-decoration: none;
-    border-bottom: 2px solid transparent; white-space: nowrap;
-    transition: all 0.2s;
+    display: inline-flex; align-items: center;
+    padding: 14px 14px; font-size: 13px; font-weight: 500;
+    color: var(--text-tertiary); text-decoration: none;
+    white-space: nowrap; letter-spacing: 0.02em;
+    border-bottom: 2px solid transparent;
+    transition: all 0.35s var(--ease-out-expo);
   }
-  nav a:hover, nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+  nav a:hover { color: var(--text-secondary); }
+  nav a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
 
-  /* Hero */
+  /* ============================================================
+     HERO — 沉浸式开屏
+     ============================================================ */
   .hero {
-    text-align: center; padding: 80px 24px 60px;
-    background: linear-gradient(135deg, #f5f3ff 0%, #ecfeff 50%, #fffbeb 100%);
+    position: relative; z-index: 1;
+    text-align: center; padding: 100px 24px 72px;
+    background:
+      radial-gradient(ellipse 100% 80% at 50% 0%, rgba(196,162,101,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 20% 80%, rgba(138,163,139,0.04) 0%, transparent 50%);
   }
-  .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; }
-  .hero .subtitle { font-size: 20px; color: var(--text-secondary); max-width: 700px; margin: 0 auto 32px; font-weight: 400; }
-  .hero .stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
-  .hero .stat {
-    background: var(--card-bg); padding: 20px 32px; border-radius: var(--radius);
-    box-shadow: var(--shadow); text-align: center; min-width: 120px;
+  .hero-ornament {
+    display: inline-block; width: 48px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    margin-bottom: 28px;
   }
-  .hero .stat .num { font-size: 32px; font-weight: 800; color: var(--accent); }
-  .hero .stat .label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  .hero h1 { margin-bottom: 16px; }
+  .hero .subtitle {
+    font-family: var(--font-serif);
+    font-size: 18px; color: var(--text-secondary);
+    max-width: 680px; margin: 0 auto 48px;
+    line-height: 1.65; font-style: italic;
+    letter-spacing: 0.01em;
+  }
+  .hero .stat-row {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
+    max-width: 900px; margin: 0 auto;
+  }
+  .hero .stat-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 22px 28px; min-width: 130px;
+    transition: all 0.4s var(--ease-out-expo);
+    position: relative; overflow: hidden;
+  }
+  .hero .stat-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(196,162,101,0.06), transparent 70%);
+    opacity: 0; transition: opacity 0.4s var(--ease-out-expo);
+  }
+  .hero .stat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--shadow-card-hover);
+  }
+  .hero .stat-card:hover::after { opacity: 1; }
+  .hero .stat-card .num {
+    font-family: var(--font-serif); font-size: 34px; font-weight: 700;
+    color: var(--gold); line-height: 1; position: relative; z-index: 1;
+  }
+  .hero .stat-card .label {
+    font-size: 12px; color: var(--text-tertiary);
+    margin-top: 6px; letter-spacing: 0.03em; position: relative; z-index: 1;
+  }
 
-  /* Sections */
-  section { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
-  section h2 {
-    font-size: 28px; font-weight: 700; margin-bottom: 8px;
-    padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  /* ============================================================
+     BENTO GRID SYSTEM — 便当盒排版
+     ============================================================ */
+  .bento {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px 60px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
   }
-  section .section-desc { color: var(--text-secondary); margin-bottom: 32px; font-size: 15px; }
+  .bento > * { position: relative; z-index: 1; }
 
-  /* Cards */
+  /* Span helpers */
+  .span-12 { grid-column: span 12; }
+  .span-8  { grid-column: span 8; }
+  .span-7  { grid-column: span 7; }
+  .span-6  { grid-column: span 6; }
+  .span-5  { grid-column: span 5; }
+  .span-4  { grid-column: span 4; }
+  .span-3  { grid-column: span 3; }
+
+  /* ============================================================
+     CARD BASE — 毛玻璃卡片
+     ============================================================ */
   .card {
-    background: var(--card-bg); border-radius: var(--radius);
-    box-shadow: var(--shadow); padding: 24px; margin-bottom: 16px;
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 28px 30px;
+    transition: all 0.45s var(--ease-out-expo);
+    position: relative; overflow: hidden;
   }
-  .card h3 { font-size: 17px; margin-bottom: 8px; color: var(--accent); }
+  .card::before {
+    content: '';
+    position: absolute; inset: 0; border-radius: inherit;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(196,162,101,0.04), transparent 60%);
+    opacity: 0; transition: opacity 0.45s var(--ease-out-expo);
+    pointer-events: none;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--shadow-card-hover);
+  }
+  .card:hover::before { opacity: 1; }
+  .card .card-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .card .card-header h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .card .card-header .section-label { margin-bottom: 4px; }
 
-  /* Timeline */
-  .timeline { position: relative; padding-left: 32px; }
-  .timeline::before {
-    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
-    width: 2px; background: var(--border);
-  }
-  .timeline-item {
-    position: relative; margin-bottom: 32px; padding-left: 32px;
-  }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -24px; top: 6px;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: var(--accent); border: 3px solid var(--bg);
-  }
-  .timeline-item .year { font-size: 22px; font-weight: 700; color: var(--accent); }
-  .timeline-item .hours { font-size: 14px; color: var(--text-secondary); }
-  .timeline-item .desc { margin-top: 6px; }
-  .bar { height: 8px; border-radius: 4px; margin-top: 8px; }
-  .bar-2022 { width: 22%; background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
-  .bar-2023 { width: 43%; background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
-  .bar-2024 { width: 17%; background: linear-gradient(90deg, #c4b5fd, #a78bfa); }
-  .bar-2025 { width: 78%; background: linear-gradient(90deg, #7c3aed, #6d28d9); }
-  .bar-2026 { width: 30%; background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
+  /* Card accent top-line */
+  .card-accent-gold { border-top: 1px solid rgba(196,162,101,0.25); }
+  .card-accent-sage { border-top: 1px solid rgba(138,163,139,0.25); }
+  .card-accent-mauve { border-top: 1px solid rgba(155,142,187,0.25); }
 
-  /* Theme grid */
-  .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  /* ============================================================
+     HIGHLIGHT CALLOUT — 2025 爆发
+     ============================================================ */
+  .callout-card {
+    background: rgba(196,162,101,0.04);
+    border: 1px solid rgba(196,162,101,0.15);
+    border-radius: var(--radius-lg);
+    padding: 28px 30px;
+    transition: all 0.45s var(--ease-out-expo);
+    position: relative; overflow: hidden;
+  }
+  .callout-card::after {
+    content: '';
+    position: absolute; top: -40%; right: -30%; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(196,162,101,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .callout-card:hover {
+    border-color: rgba(196,162,101,0.3);
+    transform: translateY(-2px);
+  }
+  .callout-badge {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold); background: rgba(196,162,101,0.10);
+    padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;
+  }
+  .callout-num {
+    font-family: var(--font-serif); font-size: 60px; font-weight: 700;
+    color: var(--gold); line-height: 1; margin: 8px 0;
+  }
+
+  /* ============================================================
+     TIMELINE — 阅读时间线
+     ============================================================ */
+  .timeline-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+  }
+  .tl-item {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius); padding: 20px;
+    transition: all 0.4s var(--ease-out-expo);
+    position: relative;
+  }
+  .tl-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--glass-border-hover);
+  }
+  .tl-year {
+    font-family: var(--font-serif); font-size: 28px; font-weight: 700;
+    color: var(--text-primary); line-height: 1;
+  }
+  .tl-hours {
+    font-family: var(--font-serif); font-size: 20px; font-weight: 600;
+    color: var(--gold); margin: 8px 0;
+  }
+  .tl-desc {
+    font-size: 12px; color: var(--text-tertiary); line-height: 1.55;
+  }
+  .tl-bar-wrap { margin-top: 10px; height: 4px; background: rgba(255,255,255,0.04); border-radius: 2px; overflow: hidden; }
+  .tl-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, rgba(196,162,101,0.4), var(--gold-dim)); }
+  .tl-item.peak {
+    border-color: rgba(196,162,101,0.2);
+    background: rgba(196,162,101,0.03);
+  }
+  .tl-item.peak .tl-bar {
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  }
+  .tl-item.peak .tl-year { color: var(--gold); }
+
+  /* ============================================================
+     THEME CARDS — 六主题
+     ============================================================ */
   .theme-card {
-    background: var(--card-bg); border-radius: var(--radius);
-    box-shadow: var(--shadow); padding: 24px; border-left: 4px solid var(--accent);
-    transition: transform 0.2s;
-  }
-  .theme-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-  .theme-card.t1 { border-left-color: var(--accent6); }
-  .theme-card.t2 { border-left-color: var(--accent); }
-  .theme-card.t3 { border-left-color: var(--accent3); }
-  .theme-card.t4 { border-left-color: var(--accent4); }
-  .theme-card.t5 { border-left-color: var(--accent2); }
-  .theme-card.t6 { border-left-color: var(--accent5); }
-  .theme-card .tname { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
-  .theme-card .tcount { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
-  .theme-card .tbooks { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-
-  /* Book ranking */
-  .book-rank { display: flex; flex-direction: column; gap: 12px; }
-  .book-rank-item {
-    display: flex; align-items: center; gap: 16px; padding: 16px;
-    background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
-  }
-  .book-rank-item .rank { font-size: 24px; font-weight: 800; color: var(--accent); min-width: 36px; }
-  .book-rank-item .info { flex: 1; }
-  .book-rank-item .title { font-weight: 600; font-size: 15px; }
-  .book-rank-item .author { font-size: 13px; color: var(--text-secondary); }
-  .book-rank-item .stars { color: var(--accent3); font-size: 13px; }
-  .book-rank-item .notes { font-size: 12px; color: var(--text-secondary); background: #f3f4f6; padding: 2px 8px; border-radius: 10px; }
-
-  /* Keywords cloud */
-  .cloud { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 20px; }
-  .cloud .kw {
-    padding: 6px 14px; border-radius: 20px; font-size: 14px;
-    background: #f5f3ff; color: var(--accent); cursor: default;
-    transition: transform 0.15s;
-  }
-  .cloud .kw:hover { transform: scale(1.08); background: #ede9fe; }
-  .cloud .kw.lg { font-size: 20px; padding: 10px 20px; font-weight: 600; }
-  .cloud .kw.md { font-size: 16px; padding: 8px 16px; }
-
-  /* Question cards */
-  .question-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-  .question-card {
-    background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
     padding: 24px;
+    transition: all 0.4s var(--ease-out-expo);
+    position: relative; overflow: hidden;
   }
-  .question-card .q { font-size: 16px; font-weight: 600; margin-bottom: 8px; line-height: 1.5; }
-  .question-card .evidence { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-  .question-card .evidence strong { color: var(--accent); }
-
-  /* Radar chart placeholder */
-  .radar-container { display: flex; justify-content: center; padding: 20px; }
-  canvas { max-width: 500px; max-height: 500px; }
-
-  /* Value cards */
-  .value-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .value-card {
-    background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
-    padding: 20px;
+  .theme-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    border-radius: 2px 2px 0 0;
+    opacity: 0.7; transition: opacity 0.3s;
   }
-  .value-card .vname { font-weight: 700; font-size: 16px; margin-bottom: 6px; color: var(--accent); }
-  .value-card .vevidence { font-size: 13px; color: var(--text-secondary); }
+  .theme-card:hover { transform: translateY(-2px); border-color: var(--glass-border-hover); }
+  .theme-card:hover::before { opacity: 1; }
+  .theme-card.t-gender::before { background: var(--rose); }
+  .theme-card.t-philosophy::before { background: var(--mauve); }
+  .theme-card.t-psych::before { background: var(--amber); }
+  .theme-card.t-politics::before { background: #C0806B; }
+  .theme-card.t-tech::before { background: var(--teal); }
+  .theme-card.t-literature::before { background: var(--sage); }
+  .theme-card .t-icon { font-size: 22px; margin-bottom: 10px; }
+  .theme-card .t-name { font-family: var(--font-serif); font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+  .theme-card .t-meta { font-size: 11px; color: var(--text-tertiary); margin-bottom: 8px; letter-spacing: 0.02em; }
+  .theme-card .t-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
-  /* Concern & Solution */
-  .concern-flow { display: flex; flex-direction: column; gap: 16px; }
-  .concern-item {
-    display: grid; grid-template-columns: 200px 1fr 1fr;
-    gap: 16px; padding: 16px; background: var(--card-bg); border-radius: var(--radius);
-    box-shadow: var(--shadow); font-size: 14px; align-items: center;
+  /* ============================================================
+     BOOK RANKING — 书籍排行
+     ============================================================ */
+  .book-list { display: flex; flex-direction: column; gap: 8px; }
+  .book-item {
+    display: flex; align-items: center; gap: 14px; padding: 14px 18px;
+    background: var(--bg-card); border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    transition: all 0.35s var(--ease-out-expo);
   }
-  .concern-item .problem { font-weight: 600; }
-  .concern-item .path { color: var(--accent2); }
-  .concern-item .tool { color: var(--accent5); }
-  @media (max-width: 768px) {
-    .concern-item { grid-template-columns: 1fr; }
+  .book-item:hover {
+    transform: translateX(4px);
+    border-color: var(--glass-border-hover);
+    background: var(--bg-card-hover);
+  }
+  .book-item .bk-rank {
+    font-family: var(--font-serif); font-size: 22px; font-weight: 700;
+    color: var(--gold-dim); min-width: 30px;
+  }
+  .book-item:nth-child(-n+3) .bk-rank { color: var(--gold); }
+  .book-item .bk-info { flex: 1; min-width: 0; }
+  .book-item .bk-title {
+    font-weight: 600; font-size: 14px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .book-item .bk-author { font-size: 12px; color: var(--text-tertiary); }
+  .book-item .bk-notes {
+    font-size: 11px; color: var(--text-tertiary);
+    background: rgba(255,255,255,0.04); padding: 3px 10px;
+    border-radius: 10px; white-space: nowrap;
   }
 
-  /* Recommendations */
-  .rec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  /* ============================================================
+     KEYWORD CLOUD — 关键词
+     ============================================================ */
+  .kw-group { margin-bottom: 20px; }
+  .kw-group-title {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.10em; color: var(--text-tertiary);
+    margin-bottom: 10px; padding-left: 2px;
+  }
+  .kw-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+  .kw-tag {
+    display: inline-block; padding: 6px 15px; border-radius: 20px;
+    font-size: 13px; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-secondary);
+    transition: all 0.3s var(--ease-out-expo);
+    cursor: default;
+  }
+  .kw-tag:hover {
+    background: rgba(196,162,101,0.08);
+    border-color: rgba(196,162,101,0.2);
+    color: var(--gold);
+    transform: translateY(-1px);
+  }
+  .kw-tag.lg { font-size: 17px; padding: 9px 20px; font-weight: 600; }
+  .kw-tag.md { font-size: 14px; padding: 7px 17px; font-weight: 500; }
+
+  /* ============================================================
+     QUESTION CARDS — 长期问题
+     ============================================================ */
+  .q-card {
+    background: var(--bg-card); border: 1px solid var(--glass-border);
+    border-radius: var(--radius); padding: 22px;
+    transition: all 0.4s var(--ease-out-expo);
+  }
+  .q-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--glass-border-hover);
+    background: var(--bg-card-hover);
+  }
+  .q-card .q-num {
+    font-family: var(--font-serif); font-size: 36px; font-weight: 700;
+    color: rgba(196,162,101,0.12); line-height: 1; margin-bottom: 4px;
+  }
+  .q-card .q-title { font-family: var(--font-serif); font-weight: 600; font-size: 15px; margin-bottom: 8px; line-height: 1.5; }
+  .q-card .q-evidence { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
+  .q-card .q-evidence em { font-style: normal; color: var(--gold-dim); }
+
+  /* ============================================================
+     CONCERN FLOW — 问题→路径
+     ============================================================ */
+  .concern-table { width: 100%; border-collapse: collapse; }
+  .concern-table th {
+    text-align: left; font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.10em;
+    color: var(--text-tertiary); padding: 0 16px 10px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .concern-table td {
+    padding: 14px 16px; font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: top; line-height: 1.55;
+  }
+  .concern-table tr { transition: background 0.3s; }
+  .concern-table tbody tr:hover { background: rgba(255,255,255,0.015); }
+  .concern-table .c-problem { color: var(--text-primary); font-weight: 500; min-width: 140px; }
+  .concern-table .c-path { color: var(--teal); font-size: 12px; }
+  .concern-table .c-tool { color: var(--sage); font-size: 12px; }
+
+  /* ============================================================
+     THINKING & VALUES — 思维/价值观网格
+     ============================================================ */
+  .trait-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px;
+  }
+  .trait-item {
+    background: var(--bg-card); border: 1px solid var(--glass-border);
+    border-radius: var(--radius); padding: 18px 20px;
+    transition: all 0.35s var(--ease-out-expo);
+  }
+  .trait-item:hover {
+    transform: translateY(-1px);
+    border-color: var(--glass-border-hover);
+  }
+  .trait-item .trait-name { font-family: var(--font-serif); font-weight: 600; font-size: 14px; margin-bottom: 4px; color: var(--gold-dim); }
+  .trait-item .trait-desc { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
+  .trait-item .trait-stars { color: var(--gold); font-size: 11px; margin-bottom: 4px; letter-spacing: 0.05em; }
+
+  /* ============================================================
+     RECOMMENDATIONS — 建议卡片
+     ============================================================ */
   .rec-card {
-    background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
-    padding: 20px; border-top: 3px solid var(--accent2);
+    background: var(--bg-card); border: 1px solid var(--glass-border);
+    border-radius: var(--radius); padding: 20px 22px;
+    transition: all 0.35s var(--ease-out-expo);
+    border-left: 2px solid rgba(196,162,101,0.15);
   }
-  .rec-card .r-title { font-weight: 700; margin-bottom: 6px; }
-  .rec-card .r-why { font-size: 13px; color: var(--text-secondary); }
+  .rec-card:hover {
+    transform: translateY(-2px);
+    border-left-color: var(--gold-dim);
+    border-color: var(--glass-border-hover);
+  }
+  .rec-card .rec-icon { font-size: 20px; margin-bottom: 8px; }
+  .rec-card .rec-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .rec-card .rec-why { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
 
-  /* Footer */
-  footer { text-align: center; padding: 40px; color: var(--text-secondary); font-size: 13px; }
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    text-align: center; padding: 48px 24px 40px;
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-tertiary); font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  footer p + p { margin-top: 6px; }
+
+  /* ============================================================
+     SCROLL ANIMATIONS
+     ============================================================ */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 1024px) {
+    .bento { grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    .span-8, .span-7, .span-6, .span-5, .span-4, .span-3 { grid-column: span 6; }
+    .span-12 { grid-column: span 6; }
+    .timeline-grid { grid-template-columns: repeat(3, 1fr); }
+    .tl-item.peak { grid-column: span 2; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 60px 16px 40px; }
+    .hero h1 { font-size: 30px; }
+    .hero .subtitle { font-size: 15px; }
+    .hero .stat-card { min-width: 100px; padding: 16px 20px; }
+    .hero .stat-card .num { font-size: 26px; }
+    .bento { grid-template-columns: 1fr; padding: 0 16px 40px; gap: 12px; }
+    .bento > * { grid-column: span 1 !important; }
+    .timeline-grid { grid-template-columns: 1fr 1fr; }
+    .tl-item.peak { grid-column: span 2; }
+    .card { padding: 20px; }
+    nav { padding: 0 8px; gap: 0; }
+    nav a { padding: 12px 10px; font-size: 11px; }
+    .callout-num { font-size: 42px; }
+    .trait-grid { grid-template-columns: 1fr; }
+    .concern-table { font-size: 11px; }
+    .concern-table td, .concern-table th { padding: 10px 8px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
 <nav>
   <a href="#hero" class="active">概览</a>
   <a href="#timeline">时间线</a>
-  <a href="#themes">主题地图</a>
-  <a href="#books">影响力排行</a>
-  <a href="#keywords">关键词云</a>
-  <a href="#questions">长期问题</a>
-  <a href="#concerns">困惑与路径</a>
-  <a href="#thinking">思维方式</a>
-  <a href="#values">价值观</a>
-  <a href="#recommendations">未来建议</a>
+  <a href="#themes">主题</a>
+  <a href="#books">排行</a>
+  <a href="#keywords">关键词</a>
+  <a href="#questions">问题</a>
+  <a href="#concerns">路径</a>
+  <a href="#thinking">思维</a>
+  <a href="#values">价值</a>
+  <a href="#recommendations">建议</a>
 </nav>
 
-<!-- Hero -->
+<!-- ============================================================
+     HERO — 开屏画像
+     ============================================================ -->
 <section id="hero" class="hero">
-  <h1>📚 我的阅读画像</h1>
-  <p class="subtitle">一个以政治经济分析为骨架、性别与哲学思辨为血肉、文学与心理学为呼吸的跨学科深度阅读者</p>
-  <div class="stats">
-    <div class="stat"><div class="num">3,800</div><div class="label">书架条目</div></div>
-    <div class="stat"><div class="num">306</div><div class="label">有笔记的书</div></div>
-    <div class="stat"><div class="num">54,978</div><div class="label">总笔记数</div></div>
-    <div class="stat"><div class="num">1,012</div><div class="label">阅读小时数</div></div>
-    <div class="stat"><div class="num">883</div><div class="label">阅读天数</div></div>
-    <div class="stat"><div class="num">138</div><div class="label">自建书单</div></div>
+  <div class="hero-ornament"></div>
+  <h1>阅读画像</h1>
+  <p class="subtitle">
+    一个以政治经济分析为骨架、性别与哲学思辨为血肉、<br>文学与心理学为呼吸的跨学科深度阅读者
+  </p>
+  <div class="stat-row">
+    <div class="stat-card"><div class="num">3,800</div><div class="label">书架条目</div></div>
+    <div class="stat-card"><div class="num">306</div><div class="label">有笔记的书</div></div>
+    <div class="stat-card"><div class="num">54,978</div><div class="label">总笔记数</div></div>
+    <div class="stat-card"><div class="num">1,012</div><div class="label">阅读小时数</div></div>
+    <div class="stat-card"><div class="num">883</div><div class="label">阅读天数</div></div>
+    <div class="stat-card"><div class="num">138</div><div class="label">自建书单</div></div>
   </div>
 </section>
 
-<!-- Timeline -->
-<section id="timeline">
-  <h2>📅 阅读时间线</h2>
-  <p class="section-desc">从2022年注册至今的阅读量变化与每个阶段的关注重点</p>
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="year">2022 — 起步期</div>
-      <div class="hours">127.6 小时</div>
-      <div class="bar bar-2022"></div>
-      <p class="desc">注册微信读书，建立阅读习惯。开始大量添加书籍，138个书单体系初步建立。"在看"书单达1066本——你是一个 collector + reader。</p>
-    </div>
-    <div class="timeline-item">
-      <div class="year">2023 — 加速期</div>
-      <div class="hours">249.4 小时（+95%）</div>
-      <div class="bar bar-2023"></div>
-      <p class="desc">阅读量翻倍。陀思妥耶夫斯基系列、存在主义心理治疗、国家为什么会失败——核心框架在此阶段奠定。</p>
-    </div>
-    <div class="timeline-item">
-      <div class="year">2024 — 调整期</div>
-      <div class="hours">100.1 小时（-60%）</div>
-      <div class="bar bar-2024"></div>
-      <p class="desc">阅读量下降。可能是生活变动，也可能是消化期——在缓慢吸收前两年的大量输入。</p>
-    </div>
-    <div class="timeline-item">
-      <div class="year">2025 — 爆发期 🔥</div>
-      <div class="hours">448.6 小时（+348%）</div>
-      <div class="bar bar-2025"></div>
-      <p class="desc">阅读量的峰值年。荣格《红书》(21.9h)成为年度之书。AI/科技主题强势崛起。Empire of AI、Power and Progress、芯片战争——你在同时探索内省最深和外部最新的两个方向。</p>
-    </div>
-    <div class="timeline-item">
-      <div class="year">2026 — 持续期</div>
-      <div class="hours">86.7 小时（截至6月，预计全年~180h）</div>
-      <div class="bar bar-2026"></div>
-      <p class="desc">阅读持续但有所回落。新的方向可能正在酝酿。</p>
-    </div>
-  </div>
-</section>
+<!-- ============================================================
+     BENTO GRID — 便当盒排版
+     ============================================================ -->
+<div class="bento">
 
-<!-- Theme Map -->
-<section id="themes">
-  <h2>🗺️ 主题地图</h2>
-  <p class="section-desc">基于138个自建书单、306本笔记书和阅读时长的主题聚类分析</p>
-  <div class="theme-grid">
-    <div class="theme-card t1">
-      <div class="tname">🔴 性别与女性主义</div>
-      <div class="tcount">最大主题集群 · 273+ 本书单条目</div>
-      <div class="tbooks">
-        <strong>书单：</strong>女权主义/性别研究(104)、女性传记(72)、女作家/女性视角(58)、女性职场(39)<br>
-        <strong>核心作者：</strong>波伏瓦(7h)、上野千鹤子(16h)、朱迪斯·巴特勒、戴锦华、李银河<br>
-        <strong>判断：</strong>系统性、持续性的核心关注，不是偶然兴趣。
+  <!-- ═══ ROW A: 时间线 (全宽) ═══ -->
+  <section id="timeline" class="span-12 card card-accent-gold reveal">
+    <div class="section-label">阅读编年</div>
+    <h2 style="margin-bottom:20px;">阅读时间线</h2>
+    <div class="timeline-grid">
+      <div class="tl-item">
+        <div class="tl-year">2022</div>
+        <div class="tl-hours">127.6h</div>
+        <div class="tl-desc">注册微信读书，建立阅读习惯，138个书单体系初步建立。</div>
+        <div class="tl-bar-wrap"><div class="tl-bar" style="width:22%"></div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2023</div>
+        <div class="tl-hours">249.4h</div>
+        <div class="tl-desc">阅读量翻倍。陀思妥耶夫斯基、存在主义心理治疗——核心框架奠定。</div>
+        <div class="tl-bar-wrap"><div class="tl-bar" style="width:43%"></div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2024</div>
+        <div class="tl-hours">100.1h</div>
+        <div class="tl-desc">阅读量回落。可能是消化期——在缓慢吸收前两年的大量输入。</div>
+        <div class="tl-bar-wrap"><div class="tl-bar" style="width:17%"></div></div>
+      </div>
+      <div class="tl-item peak">
+        <div class="tl-year">2025</div>
+        <div class="tl-hours">448.6h</div>
+        <div class="tl-desc">阅读量峰值年。荣格《红书》为年度之书，AI/科技主题强势崛起。</div>
+        <div class="tl-bar-wrap"><div class="tl-bar" style="width:78%"></div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2026</div>
+        <div class="tl-hours">86.7h</div>
+        <div class="tl-desc">截至6月，预计全年约180小时。新方向正在酝酿。</div>
+        <div class="tl-bar-wrap"><div class="tl-bar" style="width:30%"></div></div>
       </div>
     </div>
-    <div class="theme-card t2">
-      <div class="tname">🔵 哲学与思想</div>
-      <div class="tcount">227 本书单条目 · 深度最强</div>
-      <div class="tbooks">
-        <strong>书单：</strong>哲学/思考/思想/意识形态(63)、20世纪思想与现代性(21)、虚无主义(9)<br>
-        <strong>核心作者：</strong>荣格(22h)、罗素(8h)、韩炳哲(4h)、以赛亚·伯林<br>
-        <strong>特征：</strong>问题驱动型——读哲学是为了理解现实。
-      </div>
-    </div>
-    <div class="theme-card t3">
-      <div class="tname">🟡 心理学与精神分析</div>
-      <div class="tcount">124 本书单条目 · 内省最深</div>
-      <div class="tbooks">
-        <strong>书单：</strong>心理学/精神分析/心情变好(47)、心理治愈/精神力量(10)<br>
-        <strong>核心：</strong>荣格《红书》(21.9h, 1,636笔记)、存在主义心理治疗(876笔记)<br>
-        <strong>特征：</strong>不是消遣阅读，是深度自我探索。
-      </div>
-    </div>
-    <div class="theme-card t4">
-      <div class="tname">🟠 政治经济学</div>
-      <div class="tcount">100+ 本书单条目 · 社会分析维度</div>
-      <div class="tbooks">
-        <strong>书单：</strong>中国政经分析(30)、中国近代历史政经(38)、日本泡沫经济(25)<br>
-        <strong>核心：</strong>国家为什么会失败(1,509笔记)、中国国家治理的制度逻辑(812笔记)<br>
-        <strong>特征：</strong>跨国比较视角——中日韩美欧。
-      </div>
-    </div>
-    <div class="theme-card t5">
-      <div class="tname">🟢 科技与AI</div>
-      <div class="tcount">49 本书单条目 · 上升最快</div>
-      <div class="tbooks">
-        <strong>书单：</strong>AI、生物工程等科技(34)、科技与政治(8)<br>
-        <strong>核心：</strong>Empire of AI(1,105笔记)、Power and Progress(1,167笔记)<br>
-        <strong>特征：</strong>近年增长最快，且与政治经济学高度交叉。
-      </div>
-    </div>
-    <div class="theme-card t6">
-      <div class="tname">⚪ 文学经典</div>
-      <div class="tcount">持续滋养 · 笔记密度最高</div>
-      <div class="tbooks">
-        <strong>书单：</strong>陀思妥耶夫斯基(12)、黑塞、卡夫卡(5)、张爱玲(5)、加缪(3)<br>
-        <strong>核心：</strong>卡拉马佐夫兄弟(2,252笔记！)、基督山伯爵(783笔记)<br>
-        <strong>特征：</strong>文学是理解人性深处的路径，不是消遣。
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Book Ranking -->
-<section id="books">
-  <h2>⭐ 书籍影响力排行</h2>
-  <p class="section-desc">综合笔记密度、阅读时长和主题复现度的分析</p>
-  <div class="book-rank">
-    <div class="book-rank-item">
-      <div class="rank">#1</div>
-      <div class="info">
-        <div class="title">卡拉马佐夫兄弟 <span class="notes">2,252笔记</span></div>
-        <div class="author">陀思妥耶夫斯基 · 阅读 19.3小时</div>
+  <!-- ═══ ROW B: 六大主题 (3列×2行) ═══ -->
+  <section id="themes" class="span-12 reveal" style="padding:0;">
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <div class="theme-card t-gender">
+        <div class="t-icon">♀</div>
+        <div class="t-name">性别与女性主义</div>
+        <div class="t-meta">最大主题集群 · 273+ 书单条目</div>
+        <div class="t-detail"><strong>核心作者</strong>：波伏瓦(7h)、上野千鹤子(16h)、朱迪斯·巴特勒、戴锦华<br><strong>判断</strong>：系统性、持续性的核心关注，非偶然兴趣。</div>
       </div>
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#2</div>
-      <div class="info">
-        <div class="title">红书 <span class="notes">1,636笔记</span></div>
-        <div class="author">卡尔·荣格 · 阅读 21.9小时</div>
+      <div class="theme-card t-philosophy">
+        <div class="t-icon">φ</div>
+        <div class="t-name">哲学与思想</div>
+        <div class="t-meta">深度最强 · 227 条目</div>
+        <div class="t-detail"><strong>核心作者</strong>：荣格(22h)、罗素(8h)、韩炳哲(4h)、以赛亚·伯林<br><strong>特征</strong>：问题驱动型——读哲学是为了理解现实。</div>
       </div>
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#3</div>
-      <div class="info">
-        <div class="title">国家为什么会失败 <span class="notes">1,509笔记</span></div>
-        <div class="author">德隆·阿西莫格鲁 / 詹姆斯·罗宾逊 · 阅读 10.3小时</div>
+      <div class="theme-card t-psych">
+        <div class="t-icon">ψ</div>
+        <div class="t-name">心理学与精神分析</div>
+        <div class="t-meta">内省最深 · 124 条目</div>
+        <div class="t-detail"><strong>核心</strong>：荣格《红书》(21.9h, 1,636笔记)、存在主义心理治疗(876笔记)<br><strong>特征</strong>：深度自我探索，不是消遣阅读。</div>
       </div>
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#4</div>
-      <div class="info">
-        <div class="title">Power and Progress <span class="notes">1,167笔记</span></div>
-        <div class="author">Daron Acemoglu / Simon Johnson</div>
+      <div class="theme-card t-politics">
+        <div class="t-icon">⚖</div>
+        <div class="t-name">政治经济学</div>
+        <div class="t-meta">社会分析 · 100+ 条目</div>
+        <div class="t-detail"><strong>核心</strong>：国家为什么会失败(1,509笔记)、中国国家治理的制度逻辑(812笔记)<br><strong>特征</strong>：跨国比较——中日韩美欧。</div>
       </div>
-      <div class="stars">⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#5</div>
-      <div class="info">
-        <div class="title">Empire of AI <span class="notes">1,105笔记</span></div>
-        <div class="author">Karen Hao</div>
+      <div class="theme-card t-tech">
+        <div class="t-icon">⚙</div>
+        <div class="t-name">科技与 AI</div>
+        <div class="t-meta">上升最快 · 49 条目</div>
+        <div class="t-detail"><strong>核心</strong>：Empire of AI(1,105笔记)、Power and Progress(1,167笔记)<br><strong>特征</strong>：近年增长最快，与政治经济学高度交叉。</div>
       </div>
-      <div class="stars">⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#6</div>
-      <div class="info">
-        <div class="title">天真的人类学家 <span class="notes">1,088笔记</span></div>
-        <div class="author">奈吉尔·巴利</div>
+      <div class="theme-card t-literature">
+        <div class="t-icon">§</div>
+        <div class="t-name">文学经典</div>
+        <div class="t-meta">笔记密度最高 · 持续滋养</div>
+        <div class="t-detail"><strong>核心</strong>：卡拉马佐夫兄弟(2,252笔记！)、基督山伯爵(783笔记)<br><strong>特征</strong>：文学是理解人性深处的路径。</div>
       </div>
-      <div class="stars">⭐⭐⭐⭐</div>
     </div>
-    <div class="book-rank-item">
-      <div class="rank">#7</div>
-      <div class="info">
-        <div class="title">存在主义心理治疗 <span class="notes">876笔记</span></div>
-        <div class="author">欧文·亚隆</div>
-      </div>
-      <div class="stars">⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#8</div>
-      <div class="info">
-        <div class="title">中国国家治理的制度逻辑 <span class="notes">812笔记</span></div>
-        <div class="author">周雪光</div>
-      </div>
-      <div class="stars">⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#9</div>
-      <div class="info">
-        <div class="title">基督山伯爵 <span class="notes">783笔记</span></div>
-        <div class="author">大仲马</div>
-      </div>
-      <div class="stars">⭐⭐⭐⭐</div>
-    </div>
-    <div class="book-rank-item">
-      <div class="rank">#10</div>
-      <div class="info">
-        <div class="title">黄仁勋：英伟达之芯 <span class="notes">689笔记</span></div>
-        <div class="author">斯蒂芬·威特</div>
-      </div>
-      <div class="stars">⭐⭐⭐⭐</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Keywords Cloud -->
-<section id="keywords">
-  <h2>🏷️ 高频关键词云</h2>
-  <p class="section-desc">从笔记、书单名称和书籍简介中提取的核心关键词。大小反映出现频率和重要性。</p>
+  <!-- ═══ ROW C: 书籍排行 (8列) + 2025爆发 Callout (4列) ═══ -->
+  <section id="books" class="span-8 card card-accent-gold reveal">
+    <div class="section-label">影响力分析</div>
+    <h2 style="margin-bottom:16px;">书籍影响力排行</h2>
+    <div class="book-list">
+      <div class="book-item">
+        <div class="bk-rank">#1</div>
+        <div class="bk-info"><div class="bk-title">卡拉马佐夫兄弟</div><div class="bk-author">陀思妥耶夫斯基 · 19.3h</div></div>
+        <div class="bk-notes">2,252 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#2</div>
+        <div class="bk-info"><div class="bk-title">红书</div><div class="bk-author">卡尔·荣格 · 21.9h</div></div>
+        <div class="bk-notes">1,636 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#3</div>
+        <div class="bk-info"><div class="bk-title">国家为什么会失败</div><div class="bk-author">阿西莫格鲁 / 罗宾逊 · 10.3h</div></div>
+        <div class="bk-notes">1,509 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#4</div>
+        <div class="bk-info"><div class="bk-title">Power and Progress</div><div class="bk-author">Acemoglu / Johnson</div></div>
+        <div class="bk-notes">1,167 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#5</div>
+        <div class="bk-info"><div class="bk-title">Empire of AI</div><div class="bk-author">Karen Hao</div></div>
+        <div class="bk-notes">1,105 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#6</div>
+        <div class="bk-info"><div class="bk-title">天真的人类学家</div><div class="bk-author">奈吉尔·巴利</div></div>
+        <div class="bk-notes">1,088 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#7</div>
+        <div class="bk-info"><div class="bk-title">存在主义心理治疗</div><div class="bk-author">欧文·亚隆</div></div>
+        <div class="bk-notes">876 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#8</div>
+        <div class="bk-info"><div class="bk-title">中国国家治理的制度逻辑</div><div class="bk-author">周雪光</div></div>
+        <div class="bk-notes">812 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#9</div>
+        <div class="bk-info"><div class="bk-title">基督山伯爵</div><div class="bk-author">大仲马</div></div>
+        <div class="bk-notes">783 笔记</div>
+      </div>
+      <div class="book-item">
+        <div class="bk-rank">#10</div>
+        <div class="bk-info"><div class="bk-title">黄仁勋：英伟达之芯</div><div class="bk-author">斯蒂芬·威特</div></div>
+        <div class="bk-notes">689 笔记</div>
+      </div>
+    </div>
+  </section>
 
-  <div style="margin-bottom:24px;">
-    <h3 style="font-size:15px;color:var(--text-secondary);margin-bottom:12px;">结构分析型</h3>
-    <div class="cloud">
-      <span class="kw lg">制度</span><span class="kw lg">权力</span><span class="kw md">国家</span>
-      <span class="kw md">治理</span><span class="kw">政治</span><span class="kw">经济</span>
-      <span class="kw">阶级</span><span class="kw">资本主义</span><span class="kw">官僚</span>
-      <span class="kw">体制</span><span class="kw">改革</span><span class="kw">组织</span>
+  <div class="span-4 callout-card reveal">
+    <div class="callout-badge">关键拐点</div>
+    <div style="font-family:var(--font-serif);font-size:16px;font-weight:600;">2025 阅读爆发年</div>
+    <div class="callout-num">4.5<span style="font-size:24px;font-weight:400;color:var(--text-secondary);">×</span></div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;position:relative;z-index:1;">
+      阅读量达到前一年的 <strong style="color:var(--gold);">4.5倍</strong>，2023年的1.8倍。荣格《红书》成为年度之书，AI/科技主题并联崛起。这一年既是深度内省也是向外探索的转折。
+    </p>
+    <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:6px;position:relative;z-index:1;">
+      <span style="font-size:11px;background:rgba(196,162,101,0.08);color:var(--gold-dim);padding:3px 10px;border-radius:10px;">红书 21.9h</span>
+      <span style="font-size:11px;background:rgba(196,162,101,0.08);color:var(--gold-dim);padding:3px 10px;border-radius:10px;">Empire of AI</span>
+      <span style="font-size:11px;background:rgba(196,162,101,0.08);color:var(--gold-dim);padding:3px 10px;border-radius:10px;">Power & Progress</span>
     </div>
   </div>
 
-  <div style="margin-bottom:24px;">
-    <h3 style="font-size:15px;color:var(--text-secondary);margin-bottom:12px;">哲学反思型</h3>
-    <div class="cloud">
-      <span class="kw lg">存在</span><span class="kw lg">意义</span><span class="kw md">自我</span>
-      <span class="kw md">意识</span><span class="kw md">自由</span><span class="kw">理性</span>
-      <span class="kw">精神</span><span class="kw">真理</span><span class="kw">道德</span>
-      <span class="kw">死亡</span><span class="kw">虚无</span><span class="kw">现代性</span>
-    </div>
-  </div>
-
-  <div style="margin-bottom:24px;">
-    <h3 style="font-size:15px;color:var(--text-secondary);margin-bottom:12px;">心理内省型</h3>
-    <div class="cloud">
-      <span class="kw lg">阴影</span><span class="kw md">自性</span><span class="kw md">个体化</span>
-      <span class="kw">潜意识</span><span class="kw">投射</span><span class="kw">创伤</span>
-      <span class="kw">焦虑</span><span class="kw">关系</span><span class="kw">治疗</span>
-      <span class="kw">成长</span><span class="kw md">黑化</span><span class="kw">神性</span>
-    </div>
-  </div>
-
-  <div style="margin-bottom:24px;">
-    <h3 style="font-size:15px;color:var(--text-secondary);margin-bottom:12px;">社会批判型</h3>
-    <div class="cloud">
-      <span class="kw lg">性别</span><span class="kw lg">女性</span><span class="kw md">权力</span>
-      <span class="kw md">不平等</span><span class="kw">精英</span><span class="kw">压迫</span>
-      <span class="kw">反抗</span><span class="kw">身份</span><span class="kw">话语</span>
-    </div>
-  </div>
-
-  <div>
-    <h3 style="font-size:15px;color:var(--text-secondary);margin-bottom:12px;">科技未来型</h3>
-    <div class="cloud">
-      <span class="kw lg">AI</span><span class="kw md">技术</span><span class="kw md">芯片</span>
-      <span class="kw">计算</span><span class="kw">数据</span><span class="kw">创新</span>
-      <span class="kw">自动化</span><span class="kw">智能</span><span class="kw">未来</span>
-      <span class="kw">变革</span>
-    </div>
-  </div>
-</section>
-
-<!-- Long-term Questions -->
-<section id="questions">
-  <h2>❓ 我长期在思考的问题</h2>
-  <p class="section-desc">从书籍主题、笔记内容和书单组织中归纳的核心问题。每个判断都有证据支撑。</p>
-  <div class="question-grid">
-    <div class="question-card">
-      <div class="q">制度如何决定国家、组织、个人的命运？</div>
-      <div class="evidence">
-        <strong>证据：</strong>国家为什么会失败(1,509笔记)、中国国家治理的制度逻辑(812笔记)、以利为利(612笔记)、旧制度与大革命(471笔记)、书单「日本泡沫经济时代分析」(25本)、「中国政经分析」(30本)
+  <!-- ═══ ROW D: 关键词云 (全宽) ═══ -->
+  <section id="keywords" class="span-12 card reveal">
+    <div class="section-label">语义图谱</div>
+    <h2 style="margin-bottom:20px;">高频关键词云</h2>
+    <div class="kw-group">
+      <div class="kw-group-title">结构分析型</div>
+      <div class="kw-cloud">
+        <span class="kw-tag lg">制度</span><span class="kw-tag lg">权力</span><span class="kw-tag md">国家</span><span class="kw-tag md">治理</span><span class="kw-tag">政治</span><span class="kw-tag">经济</span><span class="kw-tag">阶级</span><span class="kw-tag">资本主义</span><span class="kw-tag">官僚</span><span class="kw-tag">体制</span><span class="kw-tag">改革</span><span class="kw-tag">组织</span>
       </div>
     </div>
-    <div class="question-card">
-      <div class="q">权力如何在各个层面运作——从国家制度到性别关系？</div>
-      <div class="evidence">
-        <strong>证据：</strong>独裁者手册(391笔记)、精英的傲慢(566笔记)、脏活(347笔记)、极权主义(7本书单)、女权主义/性别研究(104本书单)、Power and Progress(1,167笔记)
+    <div class="kw-group">
+      <div class="kw-group-title">哲学反思型</div>
+      <div class="kw-cloud">
+        <span class="kw-tag lg">存在</span><span class="kw-tag lg">意义</span><span class="kw-tag md">自我</span><span class="kw-tag md">意识</span><span class="kw-tag md">自由</span><span class="kw-tag">理性</span><span class="kw-tag">精神</span><span class="kw-tag">真理</span><span class="kw-tag">道德</span><span class="kw-tag">死亡</span><span class="kw-tag">虚无</span><span class="kw-tag">现代性</span>
       </div>
     </div>
-    <div class="question-card">
-      <div class="q">个体如何在制度约束、社会期待、权力压迫之下保持自由和真实？</div>
-      <div class="evidence">
-        <strong>证据：</strong>存在主义心理治疗(876笔记)、狂热分子(585笔记)、浪漫主义的根源(576笔记)、倦怠社会(209笔记)、逃避自由、书单「困惑/同龄处境/迷失/观察」
+    <div class="kw-group">
+      <div class="kw-group-title">心理内省型</div>
+      <div class="kw-cloud">
+        <span class="kw-tag lg">阴影</span><span class="kw-tag md">自性</span><span class="kw-tag md">个体化</span><span class="kw-tag">潜意识</span><span class="kw-tag">投射</span><span class="kw-tag">创伤</span><span class="kw-tag">焦虑</span><span class="kw-tag">关系</span><span class="kw-tag">治疗</span><span class="kw-tag">成长</span><span class="kw-tag md">黑化</span><span class="kw-tag">神性</span>
       </div>
     </div>
-    <div class="question-card">
-      <div class="q">技术变革将如何重塑社会结构和人的处境？</div>
-      <div class="evidence">
-        <strong>证据：</strong>Empire of AI(1,105笔记)、Power and Progress(1,167笔记)、芯片战争(313笔记)、黄仁勋:英伟达之芯(689笔记)、书单「AI、生物工程等科技」(34本)、「科技与政治」(8本)
+    <div class="kw-group">
+      <div class="kw-group-title">社会批判型</div>
+      <div class="kw-cloud">
+        <span class="kw-tag lg">性别</span><span class="kw-tag lg">女性</span><span class="kw-tag md">权力</span><span class="kw-tag md">不平等</span><span class="kw-tag">精英</span><span class="kw-tag">压迫</span><span class="kw-tag">反抗</span><span class="kw-tag">身份</span><span class="kw-tag">话语</span>
       </div>
     </div>
-    <div class="question-card">
-      <div class="q">性别如何塑造个人经验、知识生产和社会权力分配？</div>
-      <div class="evidence">
-        <strong>证据：</strong>你的最大主题集群：女权主义/性别研究(104)+女性传记(72)+女作家/女性视角(58)+女性职场(39)。波伏瓦(7h)、上野千鹤子(16h)、朱迪斯·巴特勒。
+    <div class="kw-group" style="margin-bottom:0;">
+      <div class="kw-group-title">科技未来型</div>
+      <div class="kw-cloud">
+        <span class="kw-tag lg">AI</span><span class="kw-tag md">技术</span><span class="kw-tag md">芯片</span><span class="kw-tag">计算</span><span class="kw-tag">数据</span><span class="kw-tag">创新</span><span class="kw-tag">自动化</span><span class="kw-tag">智能</span><span class="kw-tag">未来</span><span class="kw-tag">变革</span>
       </div>
     </div>
-    <div class="question-card">
-      <div class="q">如何在复杂世界中建立一套稳健的、跨学科的判断系统？</div>
-      <div class="evidence">
-        <strong>证据：</strong>原则：应对变化中的世界秩序(306笔记)、穷查理宝典(226笔记)、书单「智识」(7本)、「理财/投资/经济/金融」(21本)。你的跨学科阅读本身就是寻找判断框架的过程。
+  </section>
+
+  <!-- ═══ ROW E: 长期问题 (3列×2行) ═══ -->
+  <section id="questions" class="span-12 reveal" style="padding:0;">
+    <div style="margin-bottom:16px;">
+      <div class="section-label">思想线索</div>
+      <h2>我长期在思考的问题</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+      <div class="q-card">
+        <div class="q-num">01</div>
+        <div class="q-title">制度如何决定国家、组织、个人的命运？</div>
+        <div class="q-evidence"><em>国家为什么会失败</em>(1,509笔记)、<em>中国国家治理的制度逻辑</em>(812笔记)、<em>以利为利</em>(612笔记)、书单「日本泡沫经济时代分析」(25本)</div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">02</div>
+        <div class="q-title">权力如何在各个层面运作——从国家制度到性别关系？</div>
+        <div class="q-evidence"><em>独裁者手册</em>(391笔记)、<em>精英的傲慢</em>(566笔记)、<em>脏活</em>(347笔记)、女权主义/性别研究(104本书单)</div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">03</div>
+        <div class="q-title">个体如何在制度约束、社会期待、权力压迫之下保持自由和真实？</div>
+        <div class="q-evidence"><em>存在主义心理治疗</em>(876笔记)、<em>狂热分子</em>(585笔记)、<em>浪漫主义的根源</em>(576笔记)</div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">04</div>
+        <div class="q-title">技术变革将如何重塑社会结构和人的处境？</div>
+        <div class="q-evidence"><em>Empire of AI</em>(1,105笔记)、<em>Power and Progress</em>(1,167笔记)、<em>芯片战争</em>(313笔记)、书单「AI、生物工程等科技」(34本)</div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">05</div>
+        <div class="q-title">性别如何塑造个人经验、知识生产和社会权力分配？</div>
+        <div class="q-evidence">最大主题集群：女权主义/性别研究(104)+女性传记(72)+女作家/女性视角(58)。波伏瓦(7h)、上野千鹤子(16h)。</div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">06</div>
+        <div class="q-title">如何在复杂世界中建立一套稳健的、跨学科的判断系统？</div>
+        <div class="q-evidence"><em>原则：应对变化中的世界秩序</em>(306笔记)、<em>穷查理宝典</em>(226笔记)、书单「智识」(7本)。跨学科阅读本身就是寻找判断框架的过程。</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Concerns & Solutions -->
-<section id="concerns">
-  <h2>🔍 困惑与解决路径</h2>
-  <p class="section-desc">「问题 — 阅读路径 — 可能形成的认知工具」结构</p>
-  <div class="concern-flow">
-    <div class="concern-item">
-      <div class="problem">制度如何决定命运？</div>
-      <div class="path">政治经济学 → 比较政经(中日韩美) → 制度分析</div>
-      <div class="tool">制度分析框架：理解任何社会现象首先看激励结构和制度约束</div>
-    </div>
-    <div class="concern-item">
-      <div class="problem">权力如何运作？</div>
-      <div class="path">政治学 → 性别权力分析 → 精英研究 → 独裁分析</div>
-      <div class="tool">权力分析透镜：在多个层面识别权力的运作方式</div>
-    </div>
-    <div class="concern-item">
-      <div class="problem">个体如何在结构中保持自由？</div>
-      <div class="path">存在主义 → 荣格心理学 → 浪漫主义 → 狂热分子研究</div>
-      <div class="tool">自我觉察 + 结构认知：理解外部约束与内部自由的关系</div>
-    </div>
-    <div class="concern-item">
-      <div class="problem">技术如何重塑社会？</div>
-      <div class="path">AI研究 → 芯片产业 → 科技政治交叉 → 技术领袖传记</div>
-      <div class="tool">技术-社会互动框架：技术不是中性的，它嵌入权力结构</div>
-    </div>
-    <div class="concern-item">
-      <div class="problem">性别如何塑造经验？</div>
-      <div class="path">女性主义理论 → 女性传记 → 各国比较 → 法律权益</div>
-      <div class="tool">性别分析视角：识别和批判性别化的权力结构</div>
-    </div>
-    <div class="concern-item">
-      <div class="problem">如何建立判断框架？</div>
-      <div class="path">投资哲学 → 历史周期 → 跨学科整合</div>
-      <div class="tool">多元思维模型：从不同学科视角交叉验证判断</div>
-    </div>
-    <div class="concern-item">
-      <div class="problem">如何在不确定中做决策？</div>
-      <div class="path">经济周期研究 → 投资原则 → 反脆弱思维</div>
-      <div class="tool">周期思维 + 安全边际：不预测未来，但为多种可能做准备</div>
-    </div>
-    <div class="concern-item">
-      <div class="problem">如何找到人生意义？</div>
-      <div class="path">存在主义心理治疗 → 虚无主义 → 文学 → 荣格</div>
-      <div class="tool">意义自创力：在承认荒诞的前提下主动建构意义</div>
-    </div>
-  </div>
-</section>
+  <!-- ═══ ROW F: 困惑与解决路径 (全宽) ═══ -->
+  <section id="concerns" class="span-12 card card-accent-sage reveal">
+    <div class="section-label">认知工具箱</div>
+    <h2 style="margin-bottom:20px;">困惑与解决路径</h2>
+    <table class="concern-table">
+      <thead><tr><th>核心问题</th><th>阅读路径</th><th>形成的认知工具</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="c-problem">制度如何决定命运？</td>
+          <td class="c-path">政治经济学 → 比较政经(中日韩美) → 制度分析</td>
+          <td class="c-tool">制度分析框架：理解社会现象首先看激励结构和制度约束</td>
+        </tr>
+        <tr>
+          <td class="c-problem">权力如何运作？</td>
+          <td class="c-path">政治学 → 性别权力分析 → 精英研究 → 独裁分析</td>
+          <td class="c-tool">权力分析透镜：在多个层面识别权力的运作方式</td>
+        </tr>
+        <tr>
+          <td class="c-problem">个体如何在结构中保持自由？</td>
+          <td class="c-path">存在主义 → 荣格心理学 → 浪漫主义 → 狂热分子研究</td>
+          <td class="c-tool">自我觉察 + 结构认知：理解外部约束与内部自由的关系</td>
+        </tr>
+        <tr>
+          <td class="c-problem">技术如何重塑社会？</td>
+          <td class="c-path">AI研究 → 芯片产业 → 科技政治交叉 → 技术领袖传记</td>
+          <td class="c-tool">技术-社会互动框架：技术不是中性的，它嵌入权力结构</td>
+        </tr>
+        <tr>
+          <td class="c-problem">性别如何塑造经验？</td>
+          <td class="c-path">女性主义理论 → 女性传记 → 各国比较 → 法律权益</td>
+          <td class="c-tool">性别分析视角：识别和批判性别化的权力结构</td>
+        </tr>
+        <tr>
+          <td class="c-problem">如何建立判断框架？</td>
+          <td class="c-path">投资哲学 → 历史周期 → 跨学科整合</td>
+          <td class="c-tool">多元思维模型：从不同学科视角交叉验证判断</td>
+        </tr>
+        <tr>
+          <td class="c-problem">如何在不确定中做决策？</td>
+          <td class="c-path">经济周期研究 → 投资原则 → 反脆弱思维</td>
+          <td class="c-tool">周期思维 + 安全边际：不预测未来，但为多种可能做准备</td>
+        </tr>
+        <tr>
+          <td class="c-problem">如何找到人生意义？</td>
+          <td class="c-path">存在主义心理治疗 → 虚无主义 → 文学 → 荣格</td>
+          <td class="c-tool">意义自创力：在承认荒诞的前提下主动建构意义</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-<!-- Thinking Style -->
-<section id="thinking">
-  <h2>🧠 思维方式画像</h2>
-  <p class="section-desc">基于阅读行为的推断。分数范围 1-5，反映的是倾向而非绝对值。</p>
+  <!-- ═══ ROW G: 思维方式 (6列) + 价值观 (6列) ═══ -->
+  <section id="thinking" class="span-6 card card-accent-mauve reveal">
+    <div class="section-label">认知特质</div>
+    <h2 style="margin-bottom:14px;">思维方式画像</h2>
+    <div class="trait-grid" style="grid-template-columns:1fr;">
+      <div class="trait-item"><div class="trait-stars">★★★★★</div><div class="trait-name">系统性思维</div><div class="trait-desc">自建138个分类书单，形成完整知识地图。按问题逻辑组织阅读，不是按热门榜单。</div></div>
+      <div class="trait-item"><div class="trait-stars">★★★★★</div><div class="trait-name">跨学科整合</div><div class="trait-desc">涵盖政治学、经济学、心理学、哲学、性别研究、科技、文学、历史——问题导向而非学科导向。</div></div>
+      <div class="trait-item"><div class="trait-stars">★★★★</div><div class="trait-name">长周期思维</div><div class="trait-desc">日本泡沫经济、百年中国经济史——你在寻找底层规律而非短期答案。</div></div>
+      <div class="trait-item"><div class="trait-stars">★★★★★</div><div class="trait-name">性别意识视角</div><div class="trait-desc">273+本最大阅读集群。理论+经历+方法+跨文化——性别视角已成为默认分析透镜。</div></div>
+      <div class="trait-item"><div class="trait-stars">★★★★</div><div class="trait-name">批判性/独立思维</div><div class="trait-desc">反精英叙事、极权主义研究。书单「删减书籍的完整版」——主动寻找被过滤的信息。</div></div>
+      <div class="trait-item"><div class="trait-stars">★★★★</div><div class="trait-name">内省型思维</div><div class="trait-desc">红书(21.9h)、存在主义心理治疗——不仅向外分析世界，也向内探索自我。</div></div>
+    </div>
+  </section>
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
-    <div class="card">
-      <h3>🔄 系统性思维 ⭐⭐⭐⭐⭐</h3>
-      <p>你自建138个分类书单，从「政治经济学」到「放松幽默」，形成了自己的知识地图。你的阅读不是按热门榜单，而是按问题逻辑组织。</p>
+  <section id="values" class="span-6 card reveal">
+    <div class="section-label">底层信念</div>
+    <h2 style="margin-bottom:14px;">价值观画像</h2>
+    <div class="trait-grid" style="grid-template-columns:1fr;">
+      <div class="trait-item"><div class="trait-name">独立思考与批判精神</div><div class="trait-desc">书单「删减书籍的完整版」(15本)——主动寻找被过滤的信息。读秦晖、杨小凯、哈维尔。</div></div>
+      <div class="trait-item"><div class="trait-name">求真与清醒</div><div class="trait-desc">大量非虚构、政经分析。「后真相时代」书单——警惕被叙事操控。清楚区分娱乐和求知。</div></div>
+      <div class="trait-item"><div class="trait-name">性别平等与女性赋权</div><div class="trait-desc">273+本性别相关书单，最大主题集群。系统性理论+经历+比较+方法，非标签式关注。</div></div>
+      <div class="trait-item"><div class="trait-name">长期主义</div><div class="trait-desc">原则、穷查理宝典、理性乐观派——相信理解长期趋势比追逐短期热点重要。</div></div>
+      <div class="trait-item"><div class="trait-name">自由</div><div class="trait-desc">浪漫主义的根源(576笔记)、逃避自由、通向奴役之路——自由是阅读中最常回归的主题。</div></div>
+      <div class="trait-item"><div class="trait-name">对复杂性的容忍</div><div class="trait-desc">同时阅读多种立场，不回避矛盾。卡拉马佐夫兄弟(2,252笔记)——道德复杂性的终极小说。</div></div>
+      <div class="trait-item"><div class="trait-name">自我成长与内省</div><div class="trait-desc">红书(21.9h)、存在主义心理治疗——不只是读书，是在通过阅读发展和理解自己。</div></div>
+      <div class="trait-item"><div class="trait-name">实用与意义的平衡</div><div class="trait-desc">投资/职业/经济(实用)和哲学/文学/心理学(意义)之间的张力——追求"在现实中生存但不被定义"。</div></div>
     </div>
-    <div class="card">
-      <h3>🔗 跨学科整合 ⭐⭐⭐⭐⭐</h3>
-      <p>你的核心主题涵盖政治学、经济学、心理学、哲学、性别研究、科技、文学、历史。书单「科技与政治」直接显示跨领域整合的意图。你的阅读是问题导向，而非学科导向。</p>
-    </div>
-    <div class="card">
-      <h3>📅 长周期思维 ⭐⭐⭐⭐</h3>
-      <p>日本泡沫经济分析、百年中国经济史、旧制度与大革命——你对历史周期和长期趋势有明确兴趣。你不是在找短期答案，而是在寻找底层规律。</p>
-    </div>
-    <div class="card">
-      <h3>🔍 批判性/独立思维 ⭐⭐⭐⭐</h3>
-      <p>反精英叙事、极权主义、狂热分子、无权者的权力、脏活——你不是简单接受主流叙事的人。书单「删减书籍的完整版」(15本)说明你在主动寻找被过滤的信息。</p>
-    </div>
-    <div class="card">
-      <h3>🪞 内省型思维 ⭐⭐⭐⭐</h3>
-      <p>红书(21.9h)、存在主义心理治疗、倦怠社会——你不仅向外分析世界，也向内探索自我。精神分析(荣格)在你的阅读中占据独特位置。</p>
-    </div>
-    <div class="card">
-      <h3>⚖️ 实用与精神的张力 ⭐⭐⭐⭐</h3>
-      <p>实用侧：投资理财、硬件工程师、高增长手册；精神侧：红书、存在主义、虚无主义。你在「如何生存」和「为何生存」之间保持张力。</p>
-    </div>
-    <div class="card">
-      <h3>♀️ 性别意识视角 ⭐⭐⭐⭐⭐</h3>
-      <p>这是你规模最大的阅读集群(273+本)。你不仅读理论(巴特勒、波伏瓦)，也读经历(女性传记72本)、方法(女性职场39本)、跨文化(各国女性处境)。性别视角已成为你分析问题的默认透镜之一。</p>
-    </div>
-    <div class="card">
-      <h3>📖 文学性理解 ⭐⭐⭐⭐</h3>
-      <p>最高笔记数在卡拉马佐夫兄弟(2,252条)——文学不是消遣，是你理解人性复杂性的路径。你读陀思妥耶夫斯基、加缪、卡夫卡不是为了娱乐，是为了抵达哲学无法到达的地方。</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Values -->
-<section id="values">
-  <h2>💎 价值观画像</h2>
-  <p class="section-desc">从阅读和笔记中推断的核心价值观。每个判断附带证据。邀请你带着怀疑审视——你比我更了解你自己。</p>
-  <div class="value-grid">
-    <div class="value-card">
-      <div class="vname">独立思考与批判精神</div>
-      <div class="vevidence">反精英叙事、极权主义研究、无权者的权力、书单「删减书籍的完整版」(15本) — 你在主动寻找被过滤的信息。读秦晖、杨小凯、哈维尔——代表了不同方向的独立声音。</div>
+  <!-- ═══ ROW H: 未来建议 (3列×2行) ═══ -->
+  <section id="recommendations" class="span-12 reveal" style="padding:0;">
+    <div style="margin-bottom:16px;">
+      <div class="section-label">待探索区域</div>
+      <h2>未来阅读建议</h2>
     </div>
-    <div class="value-card">
-      <div class="vname">求真与清醒</div>
-      <div class="vevidence">大量非虚构、政经分析、历史——追求「现实是什么样的」。「后真相时代」书单、「反精英叙事」——你在警惕被叙事操控。「爽」(3本)和「放松」(47本)被分到单独书单——你很清楚娱乐和求知的区别。</div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+      <div class="rec-card">
+        <div class="rec-icon">🌉</div>
+        <div class="rec-title">弥补「科技」和「社会」之间的桥</div>
+        <div class="rec-why">你已在两个领域分别做了大量阅读。可深入交叉点——算法治理、监控资本主义、技术的社会建构。</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">🛠️</div>
+        <div class="rec-title">补充「解决方案」类阅读</div>
+        <div class="rec-why">批判性阅读非常强，但关于替代方案的阅读相对较少。探索参与式民主、合作经济、制度创新案例。</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">✍️</div>
+        <div class="rec-title">增加「实践性输出」</div>
+        <div class="rec-why">54,978条笔记是极好素材。可系统整理成主题文章、播客或参与讨论。写作是检验理解的最好方式。</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">🪞</div>
+        <div class="rec-title">在核心立场上阅读对立观点</div>
+        <div class="rec-why">某些主题的书单立场较一致。有意识阅读对立论证——不是改变立场，而是让批判更不可动摇。</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">🤸</div>
+        <div class="rec-title">增加具身体验型学习</div>
+        <div class="rec-why">阅读极度偏重认知。可考虑运动/舞蹈、手工艺、编程实践——不只是休闲，是另一种认识方式。</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">📊</div>
+        <div class="rec-title">深化制度分析框架</div>
+        <div class="rec-why">已通过Acemoglu建立制度分析基础。诺斯的制度变迁理论、奥斯特罗姆的公共治理可进一步丰富框架。</div>
+      </div>
     </div>
-    <div class="value-card">
-      <div class="vname">性别平等与女性赋权</div>
-      <div class="vevidence">273+本性别相关书单，是你最大的主题集群。不是标签式的关注，而是系统性的理论+经历+比较+方法。同时读女性传记(72本)和男性传记(47本)——做比较性的理解。</div>
-    </div>
-    <div class="value-card">
-      <div class="vname">长期主义</div>
-      <div class="vevidence">原则：应对变化中的世界秩序、穷查理宝典、理性乐观派——反映长周期思维。对经济周期的兴趣、对历史纵深的需求——都在说明你相信理解长期趋势比追逐短期热点重要。</div>
-    </div>
-    <div class="value-card">
-      <div class="vname">自我成长与内省</div>
-      <div class="vevidence">红书(21.9h)、存在主义心理治疗、自卑与超越、少有人走的路——置顶书中大量自我认知类书籍。你不只是在读书，你在通过阅读发展和理解自己。</div>
-    </div>
-    <div class="value-card">
-      <div class="vname">自由</div>
-      <div class="vevidence">浪漫主义的根源(576笔记)、逃避自由、自由及其背叛、通向奴役之路——自由是你阅读中最常回归的主题之一。政治自由、精神自由、个体自由。</div>
-    </div>
-    <div class="value-card">
-      <div class="vname">对复杂性的容忍</div>
-      <div class="vevidence">同时阅读多种立场、不回避矛盾。卡拉马佐夫兄弟(2,252笔记)——关于道德复杂性的终极小说。红书的核心里程碑是「整合善恶」。你不追求简单答案。</div>
-    </div>
-    <div class="value-card">
-      <div class="vname">实用与意义的平衡</div>
-      <div class="vevidence">在投资/职业/经济(实用)和哲学/文学/心理学(意义)之间保持张力。你似乎在追求「既能在现实中生存，又不被现实完全定义」的状态。</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Recommendations -->
-<section id="recommendations">
-  <h2>🪧 未来阅读建议</h2>
-  <p class="section-desc">基于知识地图上的「待探索区域」。不是指令，而是你可能感兴趣的方向。</p>
-  <div class="rec-grid">
-    <div class="rec-card">
-      <div class="r-title">🌉 弥补「科技」和「社会」之间的桥</div>
-      <div class="r-why"><strong>为什么：</strong>你已经在两个领域分别做了大量阅读。接下来可以深入交叉点——算法治理、监控资本主义、技术的社会建构。Empire of AI 和 Power and Progress 已打好基础。</div>
-    </div>
-    <div class="rec-card">
-      <div class="r-title">🛠️ 补充「解决方案」类阅读</div>
-      <div class="r-why"><strong>为什么：</strong>你的批判性阅读非常强，但关于「替代方案」的阅读相对较少。可以探索参与式民主、合作经济、制度创新案例。这不会削弱批判力，但会让分析更完整。</div>
-    </div>
-    <div class="rec-card">
-      <div class="r-title">✍️ 增加「实践性输出」</div>
-      <div class="r-why"><strong>为什么：</strong>54,978条笔记是极好的素材。可以考虑系统整理成主题文章、播客或参与讨论。写作是检验理解的最好方式。输入和输出之间，需要桥梁。</div>
-    </div>
-    <div class="rec-card">
-      <div class="r-title">🪞 在核心立场上阅读对立观点</div>
-      <div class="r-why"><strong>为什么：</strong>某些主题(反精英、性别批判)的书单立场较为一致。有意识地阅读对立论证，不是改变立场，而是让你的批判更不可动摇。</div>
-    </div>
-    <div class="rec-card">
-      <div class="r-title">🤸 增加具身体验型学习</div>
-      <div class="r-why"><strong>为什么：</strong>你的阅读极度偏重认知领域。可以考虑运动/舞蹈、手工艺、编程实践、田野调查——这不只是「休閒」，是另一种认识方式。</div>
-    </div>
-    <div class="rec-card">
-      <div class="r-title">📊 深化制度分析框架</div>
-      <div class="r-why"><strong>为什么：</strong>你已经通过Acemoglu等建立了制度分析的基础。诺斯的制度变迁理论、奥斯特罗姆的公共治理可以进一步丰富你的框架。</div>
-    </div>
-  </div>
-</section>
+</div><!-- /bento -->
 
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
 <footer>
   <p>分析生成于 2026-06-08 · 数据来源：微信读书 API · 分析方法：主题聚类 + 关键词提取 + 时间序列分析</p>
-  <p style="margin-top:8px;">这份分析不是终点，而是一个反思的路标。你比我更了解你自己。</p>
+  <p>这份分析不是终点，而是一个反思的路标。你比你想象的更了解你自己。</p>
 </footer>
 
+<!-- ============================================================
+     SCRIPTS — 仅保留必要的交互逻辑
+     ============================================================ -->
 <script>
-// Smooth scroll
+// ── Smooth scroll + Active nav ──
 document.querySelectorAll('nav a').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -679,7 +928,6 @@ document.querySelectorAll('nav a').forEach(a => {
   });
 });
 
-// Active nav on scroll
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a');
 window.addEventListener('scroll', () => {
@@ -690,6 +938,34 @@ window.addEventListener('scroll', () => {
   });
   navLinks.forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// ── Scroll-triggered reveal animations ──
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+revealEls.forEach(el => observer.observe(el));
+
+// ── Card mouse-follow glow (subtle) ──
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--mx', `${x}%`);
+    card.style.setProperty('--my', `${y}%`);
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.setProperty('--mx', '50%');
+    card.style.setProperty('--my', '0%');
   });
 });
 </script>
