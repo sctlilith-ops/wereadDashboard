@@ -513,6 +513,38 @@
     .concern-table { font-size: 11px; }
     .concern-table td, .concern-table th { padding: 10px 8px; }
   }
+
+  /* ── AI Analysis ── */
+  .ai-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px;
+    font-family: var(--font-serif); font-size: 16px; font-weight: 600;
+    color: #0A0C0B;
+    background: linear-gradient(135deg, #D4B87A, #C4A265);
+    border: none; border-radius: var(--radius);
+    cursor: pointer; letter-spacing: 0.02em;
+    transition: all 0.4s var(--ease-out-expo);
+  }
+  .ai-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(196,162,101,0.3);
+  }
+  .ai-btn:active { transform: scale(0.97); }
+  .ai-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .ai-spinner {
+    width: 32px; height: 32px; margin: 0 auto;
+    border: 2px solid rgba(255,255,255,0.08);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: ai-spin 1s linear infinite;
+  }
+  @keyframes ai-spin { to { transform: rotate(360deg); } }
+
+  #ai-content h1, #ai-content h2, #ai-content h3 { font-family: var(--font-serif); }
+  #ai-content p { margin: 12px 0; line-height: 1.9; }
+  #ai-content strong { color: var(--gold-dim); font-weight: 600; }
+  #ai-content li { margin: 4px 0 4px 24px; }
 </style>
 </head>
 <body>
@@ -556,6 +588,21 @@
      BENTO GRID — 便当盒排版
      ============================================================ -->
 <div class="bento">
+
+  <!-- ═══ ROW 0: AI 深度分析 (全宽) ═══ -->
+  <section id="ai-analysis" class="span-12 card card-accent-gold reveal" style="display:none;">
+    <div class="section-label">AI 深度洞察</div>
+    <h2 style="margin-bottom:20px;">AI 阅读画像分析</h2>
+    <div id="ai-trigger-area" style="text-align:center;padding:24px 0;">
+      <button id="ai-start-btn" class="ai-btn">&#x1F9E0; 开始 AI 深度分析</button>
+      <p style="font-size:11px;color:var(--text-tertiary);margin-top:12px;">
+        基于你的真实阅读数据与笔记，AI 将生成专属深度画像报告<br>
+        <span style="color:var(--gold-dim);">需要先在插件弹窗中配置 AI API Key</span>
+      </p>
+    </div>
+    <div id="ai-loading" style="display:none;text-align:center;padding:30px 0;"></div>
+    <div id="ai-content" style="display:none;font-family:var(--font-serif);line-height:1.9;color:var(--text-primary);"></div>
+  </section>
 
   <!-- ═══ ROW A: 时间线 (全宽) ═══ -->
   <section id="timeline" class="span-12 card card-accent-gold reveal">
@@ -916,58 +963,9 @@
 </footer>
 
 <!-- ============================================================
-     SCRIPTS — 仅保留必要的交互逻辑
+     SCRIPTS — 外部引用（满足 Manifest V3 CSP）
+     dashboard.js 包含：数据加载/融合 + 平滑滚动 + 渐显动画 + 鼠标光晕
      ============================================================ -->
-<script>
-// ── Smooth scroll + Active nav ──
-document.querySelectorAll('nav a').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('nav a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    const top = s.offsetTop - 100;
-    if (window.scrollY >= top) current = s.getAttribute('id');
-  });
-  navLinks.forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-  });
-});
-
-// ── Scroll-triggered reveal animations ──
-const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-
-revealEls.forEach(el => observer.observe(el));
-
-// ── Card mouse-follow glow (subtle) ──
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    card.style.setProperty('--mx', `${x}%`);
-    card.style.setProperty('--my', `${y}%`);
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.setProperty('--mx', '50%');
-    card.style.setProperty('--my', '0%');
-  });
-});
-</script>
+<script src="dashboard.js"></script>
 </body>
 </html>

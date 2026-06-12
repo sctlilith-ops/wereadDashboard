@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  :root {
+    --bg: #0A0C0B;
+    --surface: rgba(255,255,255,0.025);
+    --border: rgba(255,255,255,0.06);
+    --text: #E6DDD0;
+    --text-secondary: #9C9488;
+    --text-tertiary: #6B6560;
+    --gold: #C4A265;
+    --gold-dim: #8B7355;
+    --font-serif: Georgia, "Noto Serif SC", "STSong", "SimSun", serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --radius: 10px;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 360px; min-height: 280px;
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    padding: 28px 24px 24px;
+    text-align: center; position: relative;
+  }
+  .ornament {
+    display: inline-block; width: 36px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: var(--font-serif); font-size: 22px; font-weight: 700;
+    line-height: 1.2; margin-bottom: 4px; letter-spacing: -0.01em;
+  }
+  .subtitle {
+    font-size: 12px; color: var(--text-tertiary);
+    letter-spacing: 0.08em; margin-bottom: 20px;
+  }
+
+  /* ── API Key input ── */
+  .api-key-row {
+    display: flex; gap: 6px; margin-bottom: 16px;
+  }
+  .api-key-row input {
+    flex: 1; padding: 10px 14px;
+    font-family: var(--font-sans); font-size: 12px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    outline: none; transition: border-color 0.3s;
+    letter-spacing: 0.02em;
+  }
+  .api-key-row input::placeholder { color: var(--text-tertiary); }
+  .api-key-row input:focus { border-color: rgba(196,162,101,0.35); }
+  .api-key-row .btn-save {
+    padding: 10px 14px;
+    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+    color: var(--gold); background: rgba(196,162,101,0.08);
+    border: 1px solid rgba(196,162,101,0.15); border-radius: var(--radius);
+    cursor: pointer; white-space: nowrap;
+    transition: all 0.3s var(--ease-out-expo);
+  }
+  .api-key-row .btn-save:hover {
+    background: rgba(196,162,101,0.15); border-color: rgba(196,162,101,0.3);
+  }
+  .api-key-row .btn-save.saved {
+    color: #8AA38B; background: rgba(138,163,139,0.08);
+    border-color: rgba(138,163,139,0.2);
+  }
+
+  /* ── Status ── */
+  #status-area {
+    margin-bottom: 18px; min-height: 22px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .status-ok {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #8AA38B;
+  }
+  .status-ok .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #8AA38B; box-shadow: 0 0 6px rgba(138,163,139,0.5);
+  }
+  .status-warn {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    font-size: 12px; color: #C0806B;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; width: 100%;
+    padding: 12px 24px;
+    font-family: var(--font-sans); font-size: 14px; font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #0A0C0B;
+    background: linear-gradient(135deg, #D4B87A, #C4A265);
+    border: none; border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.35s var(--ease-out-expo);
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .btn-primary:hover::after { opacity: 1; }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(196,162,101,0.25);
+  }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled {
+    opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none;
+  }
+  .btn-primary:disabled::after { display: none; }
+  .btn-primary.loading { pointer-events: none; opacity: 0.7; }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 6px; width: 100%; margin-top: 10px;
+    padding: 10px 16px;
+    font-family: var(--font-sans); font-size: 12px; font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); cursor: pointer;
+    transition: all 0.3s var(--ease-out-expo); text-decoration: none;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.12); color: var(--text); }
+
+  /* ── Progress ── */
+  #progress { display: none; margin-top: 14px; font-size: 11px; color: var(--text-tertiary); }
+  #progress.visible { display: block; }
+  .spinner {
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-top-color: var(--gold); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle; margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Toast ── */
+  #toast {
+    display: none; margin-top: 12px; padding: 8px 14px;
+    border-radius: 6px; font-size: 11px; font-weight: 500;
+  }
+  #toast.success { display: block; background: rgba(138,163,139,0.10); border: 1px solid rgba(138,163,139,0.2); color: #8AA38B; }
+  #toast.error   { display: block; background: rgba(192,128,107,0.10); border: 1px solid rgba(192,128,107,0.2); color: #C0806B; }
+
+  /* ── Hint ── */
+  .hint {
+    margin-top: 16px; font-size: 10px; color: var(--text-tertiary); line-height: 1.5;
+  }
+  .hint a { color: var(--gold-dim); text-decoration: none; transition: color 0.2s; }
+  .hint a:hover { color: var(--gold); }
+
+  /* ── AI Config: collapsible section ── */
+  .ai-toggle {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; margin-top: 16px; padding: 8px 0;
+    font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+    color: var(--text-tertiary); background: none; border: none;
+    border-top: 1px solid var(--border); cursor: pointer;
+    letter-spacing: 0.04em; transition: color 0.3s;
+  }
+  .ai-toggle:hover { color: var(--text-secondary); }
+  .ai-toggle .arrow { transition: transform 0.3s var(--ease-out-expo); font-size: 10px; }
+  .ai-toggle.open .arrow { transform: rotate(180deg); }
+
+  .ai-config { display: none; padding-top: 14px; text-align: left; }
+  .ai-config.visible { display: block; }
+
+  .ai-config .field { margin-bottom: 10px; }
+  .ai-config .field label {
+    display: block; font-size: 10px; font-weight: 600;
+    color: var(--text-tertiary); letter-spacing: 0.06em;
+    margin-bottom: 4px; text-transform: uppercase;
+  }
+  .ai-config .field select,
+  .ai-config .field input {
+    width: 100%; padding: 8px 10px;
+    font-family: var(--font-sans); font-size: 11px;
+    color: var(--text); background: var(--surface);
+    border: 1px solid var(--border); border-radius: 6px;
+    outline: none; transition: border-color 0.3s;
+  }
+  .ai-config .field select:focus,
+  .ai-config .field input:focus { border-color: rgba(196,162,101,0.35); }
+  .ai-config .field input::placeholder { color: var(--text-tertiary); }
+
+  .ai-config .btn-ai-save {
+    width: 100%; margin-top: 6px; padding: 8px 0;
+    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+    color: var(--gold); background: rgba(196,162,101,0.08);
+    border: 1px solid rgba(196,162,101,0.15); border-radius: 6px;
+    cursor: pointer; transition: all 0.3s var(--ease-out-expo);
+  }
+  .ai-config .btn-ai-save:hover {
+    background: rgba(196,162,101,0.15); border-color: rgba(196,162,101,0.3);
+  }
+  .ai-config .btn-ai-save.saved {
+    color: #8AA38B; background: rgba(138,163,139,0.08);
+    border-color: rgba(138,163,139,0.2);
+  }
+
+  .ai-privacy {
+    margin-top: 8px; font-size: 9px; color: var(--text-tertiary);
+    line-height: 1.4; text-align: center;
+    padding: 6px 8px; background: rgba(138,163,139,0.04);
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="ornament"></div>
+  <h1>微信读书</h1>
+  <p class="subtitle">数 据 看 板 · BYOK</p>
+
+  <!-- API Key -->
+  <div class="api-key-row">
+    <input type="password" id="api-key-input" placeholder="输入 API Key (wrk-...)" autocomplete="off" spellcheck="false">
+    <button id="save-key-btn" class="btn-save">保存</button>
+  </div>
+
+  <!-- Status -->
+  <div id="status-area">
+    <div id="status-checking" class="status-ok">
+      <span class="dot"></span> 正在检测…
+    </div>
+  </div>
+
+  <!-- Fetch -->
+  <button id="fetch-btn" class="btn-primary" disabled>
+    获取我的阅读数据
+  </button>
+
+  <button id="get-key-btn" class="btn-secondary">
+    获取 API Key →
+  </button>
+
+  <div id="progress"><span class="spinner"></span>正在通过 API 获取数据…</div>
+  <div id="toast"></div>
+
+  <p class="hint">
+    请前往 <a href="https://weread.qq.com/r/weread-skills" target="_blank">weread.qq.com/r/weread-skills</a> 获取你的 API Key<br>
+    密钥仅保存在本地浏览器，<strong>绝对不上传任何服务器</strong>
+  </p>
+
+  <!-- ═══ AI 分析配置 (可折叠) ═══ -->
+  <button id="ai-toggle" class="ai-toggle">
+    <span class="arrow">▾</span> AI 深度分析配置
+  </button>
+  <div id="ai-config" class="ai-config">
+    <div class="field">
+      <label>AI 模型提供商</label>
+      <select id="ai-provider">
+        <option value="deepseek">DeepSeek（推荐 · 便宜）</option>
+        <option value="openai">OpenAI</option>
+        <option value="anthropic">Anthropic</option>
+        <option value="custom">自定义</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>AI API Key</label>
+      <input type="password" id="ai-apikey" placeholder="sk-..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>API Base URL</label>
+      <input type="text" id="ai-baseurl" placeholder="https://api.deepseek.com/v1" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>模型名称</label>
+      <input type="text" id="ai-model" placeholder="deepseek-chat" autocomplete="off" spellcheck="false">
+    </div>
+    <button id="save-ai-btn" class="btn-ai-save">保存 AI 配置</button>
+    <div class="ai-privacy">
+      🔒 您的 AI Key 仅在本地浏览器中直接与 AI 模型 API 通信<br>
+      不会经过任何第三方服务器
+    </div>
+  </div>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>

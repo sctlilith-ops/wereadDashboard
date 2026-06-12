@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "微信读书 · 数据看板",
+  "version": "1.1.0",
+  "description": "一键生成你的微信读书阅读数据可视化看板 + AI 深度阅读画像分析。BYOK 模式，数据仅保存在本地。",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.weread.qq.com/*",
+    "*://api.openai.com/*",
+    "*://api.deepseek.com/*",
+    "*://api.anthropic.com/*",
+    "*://api.moonshot.cn/*",
+    "*://api.zhipuai.cn/*",
+    "*://dashscope.aliyuncs.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "微信读书 · 数据看板"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["reading-visualization.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
